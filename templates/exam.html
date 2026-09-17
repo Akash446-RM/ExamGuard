@@ -1,0 +1,1252 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ExamGuard Examination</title>
+
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+
+            background-color: #222;
+
+            color: white;
+
+            padding: 15px 30px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .container {
+
+            width: 85%;
+
+            margin: 30px auto;
+        }
+
+
+        /* =========================
+           MONITORING BOX
+        ========================= */
+
+        .monitor-box {
+
+            background-color: white;
+
+            padding: 20px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+
+        /* =========================
+           CAMERA
+        ========================= */
+
+        #camera {
+
+            width: 400px;
+
+            height: 300px;
+
+            background-color: black;
+
+            border-radius: 8px;
+
+            display: block;
+
+            margin-top: 10px;
+        }
+
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+
+            font-weight: bold;
+        }
+
+
+        #camera-status {
+
+            color: orange;
+        }
+
+
+        #face-status {
+
+            color: orange;
+        }
+
+
+        #browser-status {
+
+            color: green;
+        }
+
+
+        /* =========================
+           QUESTION
+        ========================= */
+
+        .question {
+
+            background-color: white;
+
+            padding: 25px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .option {
+
+            display: block;
+
+            margin: 15px 0;
+        }
+
+
+        button {
+
+            padding: 10px 20px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            background-color: #007bff;
+
+            color: white;
+
+            cursor: pointer;
+        }
+
+
+        button:hover {
+
+            background-color: #0056b3;
+        }
+
+
+        /* =========================
+           EVENT LOG
+        ========================= */
+
+        #event-log {
+
+            background-color: #f8f9fa;
+
+            padding: 10px;
+
+            height: 180px;
+
+            overflow-y: auto;
+
+            font-size: 14px;
+
+            border: 1px solid #ddd;
+        }
+
+
+        /* =========================
+           CANVAS
+        ========================= */
+
+        #canvas {
+
+            display: none;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     HEADER
+================================================== -->
+
+<div class="header">
+
+    <h2>ExamGuard</h2>
+
+    <span>
+        Online Examination
+    </span>
+
+</div>
+
+
+
+<!-- ==================================================
+     MAIN CONTAINER
+================================================== -->
+
+<div class="container">
+
+
+    <!-- ==================================================
+         MONITORING STATUS
+    ================================================== -->
+
+    <div class="monitor-box">
+
+        <h3>
+            Examination Monitoring
+        </h3>
+
+
+        <p>
+
+            Camera:
+
+            <span
+                id="camera-status"
+                class="status">
+
+                Starting...
+
+            </span>
+
+        </p>
+
+
+        <p>
+
+            Face:
+
+            <span
+                id="face-status"
+                class="status">
+
+                Waiting...
+
+            </span>
+
+        </p>
+
+
+        <p>
+
+            Browser Monitoring:
+
+            <span
+                id="browser-status"
+                class="status">
+
+                Active
+
+            </span>
+
+        </p>
+
+
+        <!-- CAMERA -->
+
+        <video
+            id="camera"
+            autoplay
+            playsinline>
+        </video>
+
+
+        <!-- CANVAS USED TO CAPTURE FRAME -->
+
+        <canvas
+            id="canvas">
+        </canvas>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         QUESTION
+    ================================================== -->
+
+    <div class="question">
+
+        <h3>
+            Question 1
+        </h3>
+
+
+        <p>
+
+            What is the output of the following
+            Python code?
+
+        </p>
+
+
+        <pre>
+
+x = 10
+
+print(x + 5)
+
+        </pre>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="answer"
+                value="10">
+
+            10
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="answer"
+                value="15">
+
+            15
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="answer"
+                value="20">
+
+            20
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="answer"
+                value="25">
+
+            25
+
+        </label>
+
+
+        <br>
+
+
+        <button
+            onclick="submitAnswer()">
+
+            Save Answer
+
+        </button>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         BROWSER EVENT LOG
+    ================================================== -->
+
+    <div class="monitor-box">
+
+        <h3>
+            Browser Activity
+        </h3>
+
+
+        <div id="event-log">
+
+            Monitoring started...
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =====================================================
+   PART 1
+   CAMERA VARIABLES
+===================================================== */
+
+const video =
+    document.getElementById("camera");
+
+
+const canvas =
+    document.getElementById("canvas");
+
+
+const context =
+    canvas.getContext("2d");
+
+
+const cameraStatus =
+    document.getElementById("camera-status");
+
+
+const faceStatus =
+    document.getElementById("face-status");
+
+
+
+/* =====================================================
+   PART 2
+   START CAMERA
+===================================================== */
+
+navigator.mediaDevices
+    .getUserMedia({
+
+        video: true,
+
+        audio: false
+
+    })
+
+
+    .then(function(stream) {
+
+        /*
+        Connect webcam stream
+        to video element
+        */
+
+        video.srcObject = stream;
+
+
+        cameraStatus.innerText =
+            "Connected";
+
+
+        cameraStatus.style.color =
+            "green";
+
+
+        /*
+        Start sending frames
+        */
+
+        startFaceMonitoring();
+
+    })
+
+
+    .catch(function(error) {
+
+        console.error(
+            "Camera error:",
+            error
+        );
+
+
+        cameraStatus.innerText =
+            "Camera access denied";
+
+
+        cameraStatus.style.color =
+            "red";
+
+    });
+
+
+
+/* =====================================================
+   PART 3
+   START FACE MONITORING
+===================================================== */
+
+function startFaceMonitoring() {
+
+    /*
+    Capture one frame
+    every 2 seconds
+    */
+
+    setInterval(
+
+        captureAndSendFrame,
+
+        2000
+
+    );
+
+}
+
+
+
+/* =====================================================
+   PART 4
+   CAPTURE WEBCAM FRAME
+===================================================== */
+
+function captureAndSendFrame() {
+
+    /*
+    Make canvas same size
+    as video
+    */
+
+    canvas.width =
+        video.videoWidth;
+
+
+    canvas.height =
+        video.videoHeight;
+
+
+    /*
+    Draw current webcam frame
+    onto canvas
+    */
+
+    context.drawImage(
+
+        video,
+
+        0,
+
+        0,
+
+        canvas.width,
+
+        canvas.height
+
+    );
+
+
+    /*
+    Convert canvas image
+    into JPEG
+    */
+
+    canvas.toBlob(
+
+        function(blob) {
+
+
+            if (!blob) {
+
+                console.error(
+                    "Could not create image"
+                );
+
+                return;
+
+            }
+
+
+            /*
+            Create FormData
+            */
+
+            const formData =
+                new FormData();
+
+
+            formData.append(
+
+                "image",
+
+                blob,
+
+                "frame.jpg"
+
+            );
+
+
+            /*
+            Send frame to Flask
+            */
+
+            fetch(
+
+                "/monitor-face",
+
+                {
+
+                    method: "POST",
+
+                    body: formData
+
+                }
+
+            )
+
+
+            .then(function(response) {
+
+                return response.json();
+
+            })
+
+
+            .then(function(data) {
+
+
+                console.log(
+                    "Face state:",
+                    data.state
+                );
+
+
+                /*
+                Update face status
+                */
+
+                if (
+                    data.state ===
+                    "face_detected"
+                ) {
+
+                    faceStatus.innerText =
+                        "Face Detected";
+
+
+                    faceStatus.style.color =
+                        "green";
+
+                }
+
+                else if (
+                    data.state ===
+                    "face_absent"
+                ) {
+
+                    faceStatus.innerText =
+                        "Face Absent";
+
+
+                    faceStatus.style.color =
+                        "red";
+
+                }
+
+            })
+
+
+            .catch(function(error) {
+
+                console.error(
+                    "Face monitoring error:",
+                    error
+                );
+
+            });
+
+
+        },
+
+        "image/jpeg",
+
+        0.7
+
+    );
+
+}
+
+
+
+/* =====================================================
+   PART 5
+   BROWSER EVENT FUNCTION
+===================================================== */
+
+function logBrowserEvent(
+    eventType,
+    details
+) {
+
+
+    /*
+    Send browser event
+    to Flask
+    */
+
+    fetch(
+
+        "/log-browser-event",
+
+        {
+
+            method: "POST",
+
+
+            headers: {
+
+                "Content-Type":
+                    "application/json"
+
+            },
+
+
+            body: JSON.stringify({
+
+                event_type:
+                    eventType,
+
+                details:
+                    details
+
+            })
+
+        }
+
+    )
+
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+
+    .then(function(data) {
+
+        console.log(
+
+            "Browser event saved:",
+
+            eventType
+
+        );
+
+    })
+
+
+    .catch(function(error) {
+
+        console.error(
+
+            "Browser event error:",
+
+            error
+
+        );
+
+    });
+
+
+    /*
+    Also show event
+    on screen
+    */
+
+    displayEvent(
+
+        eventType,
+
+        details
+
+    );
+
+}
+
+
+
+/* =====================================================
+   PART 6
+   DISPLAY BROWSER EVENT
+===================================================== */
+
+function displayEvent(
+    eventType,
+    details
+) {
+
+
+    const eventLog =
+        document.getElementById(
+            "event-log"
+        );
+
+
+    const time =
+        new Date()
+        .toLocaleTimeString();
+
+
+    const message =
+        document.createElement("div");
+
+
+    message.innerText =
+
+        time +
+        " - " +
+        eventType +
+        " - " +
+        details;
+
+
+    eventLog.appendChild(
+        message
+    );
+
+
+    /*
+    Scroll to latest event
+    */
+
+    eventLog.scrollTop =
+        eventLog.scrollHeight;
+
+}
+
+
+
+/* =====================================================
+   PART 7
+   EXAM STARTED
+===================================================== */
+
+window.addEventListener(
+
+    "load",
+
+    function() {
+
+
+        logBrowserEvent(
+
+            "exam_started",
+
+            "Candidate opened examination page"
+
+        );
+
+    }
+
+);
+
+
+
+/* =====================================================
+   PART 8
+   TAB SWITCH
+===================================================== */
+
+document.addEventListener(
+
+    "visibilitychange",
+
+    function() {
+
+
+        if (
+            document.hidden
+        ) {
+
+
+            logBrowserEvent(
+
+                "tab_switch",
+
+                "Candidate left examination page"
+
+            );
+
+        }
+
+        else {
+
+
+            logBrowserEvent(
+
+                "tab_return",
+
+                "Candidate returned to examination page"
+
+            );
+
+        }
+
+    }
+
+);
+
+
+
+/* =====================================================
+   PART 9
+   WINDOW FOCUS LOST
+===================================================== */
+
+window.addEventListener(
+
+    "blur",
+
+    function() {
+
+
+        logBrowserEvent(
+
+            "focus_lost",
+
+            "Browser window lost focus"
+
+        );
+
+    }
+
+);
+
+
+
+/* =====================================================
+   PART 10
+   WINDOW FOCUS GAINED
+===================================================== */
+
+window.addEventListener(
+
+    "focus",
+
+    function() {
+
+
+        logBrowserEvent(
+
+            "focus_gained",
+
+            "Browser window regained focus"
+
+        );
+
+    }
+
+);
+
+
+
+/* =====================================================
+   PART 11
+   COPY
+===================================================== */
+
+document.addEventListener(
+
+    "copy",
+
+    function() {
+
+
+        logBrowserEvent(
+
+            "copy_attempt",
+
+            "Candidate attempted to copy content"
+
+        );
+
+    }
+
+);
+
+
+
+/* =====================================================
+   PART 12
+   PASTE
+===================================================== */
+
+document.addEventListener(
+
+    "paste",
+
+    function() {
+
+
+        logBrowserEvent(
+
+            "paste_attempt",
+
+            "Candidate attempted to paste content"
+
+        );
+
+    }
+
+);
+
+
+
+/* =====================================================
+   PART 13
+   CUT
+===================================================== */
+
+document.addEventListener(
+
+    "cut",
+
+    function() {
+
+
+        logBrowserEvent(
+
+            "cut_attempt",
+
+            "Candidate attempted to cut content"
+
+        );
+
+    }
+
+);
+
+
+
+/* =====================================================
+   PART 14
+   RIGHT CLICK
+===================================================== */
+
+document.addEventListener(
+
+    "contextmenu",
+
+    function(event) {
+
+
+        /*
+        Stop normal context menu
+        */
+
+        event.preventDefault();
+
+
+        logBrowserEvent(
+
+            "right_click",
+
+            "Candidate attempted right click"
+
+        );
+
+    }
+
+);
+
+
+
+/* =====================================================
+   PART 15
+   KEYBOARD ACTIVITY
+===================================================== */
+
+document.addEventListener(
+
+    "keydown",
+
+    function(event) {
+
+
+        /*
+        We record only that
+        keyboard activity happened.
+
+        We do NOT store
+        the actual key.
+        */
+
+        logBrowserEvent(
+
+            "keyboard_activity",
+
+            "Candidate pressed a keyboard key"
+
+        );
+
+    }
+
+);
+
+
+
+/* =====================================================
+   PART 16
+   MOUSE ACTIVITY
+===================================================== */
+
+let lastMouseEventTime = 0;
+
+
+document.addEventListener(
+
+    "mousemove",
+
+    function() {
+
+
+        const currentTime =
+            Date.now();
+
+
+        /*
+        Save mouse activity
+        only once every 5 seconds.
+        */
+
+        if (
+
+            currentTime -
+            lastMouseEventTime
+            >= 5000
+
+        ) {
+
+
+            lastMouseEventTime =
+                currentTime;
+
+
+            logBrowserEvent(
+
+                "mouse_activity",
+
+                "Candidate moved mouse"
+
+            );
+
+        }
+
+    }
+
+);
+
+
+
+/* =====================================================
+   PART 17
+   ANSWER SELECTED
+===================================================== */
+
+const answerOptions =
+
+    document.querySelectorAll(
+
+        'input[name="answer"]'
+
+    );
+
+
+answerOptions.forEach(
+
+    function(option) {
+
+
+        option.addEventListener(
+
+            "change",
+
+            function() {
+
+
+                logBrowserEvent(
+
+                    "answer_selected",
+
+                    "Candidate selected an answer"
+
+                );
+
+            }
+
+        );
+
+    }
+
+);
+
+
+
+/* =====================================================
+   PART 18
+   SAVE ANSWER
+===================================================== */
+
+function submitAnswer() {
+
+
+    logBrowserEvent(
+
+        "answer_saved",
+
+        "Candidate saved answer"
+
+    );
+
+
+    alert(
+        "Answer saved successfully"
+    );
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
+```
