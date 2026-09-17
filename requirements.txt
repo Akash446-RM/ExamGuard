@@ -1,1 +1,2 @@
 python -m pip install flask
+python -m pip install opencv-python==4.13.0.92

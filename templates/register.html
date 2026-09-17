@@ -8,9 +8,9 @@
 
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
             font-family: "Segoe UI", Arial, sans-serif;
         }
 
@@ -163,6 +163,11 @@
 
         .input-wrapper {
             position: relative;
+            height: 220px;
+            overflow: hidden;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #fff7ed, #ffedd5);
+            border: 2px solid #f97316;
         }
 
         .input-wrapper input {
@@ -216,6 +221,7 @@
             margin-top: 24px;
             font-size: 14px;
             color: #6b7280;
+            font-size: 12px;
         }
 
         .login-text a {
@@ -379,6 +385,14 @@
                             placeholder="Create a password"
                             required
                         >
+                    </div>
+
+                    <p id="photoStatus">
+                        Start the camera to capture your photo.
+                    </p>
+
+                    <div class="info">
+                        Ensure your face is clearly visible and the area is well lit.
                     </div>
 
                 </div>
