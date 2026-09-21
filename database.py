@@ -154,6 +154,24 @@ def init_db():
         )
     """)
 
+    # ----------------------------------------
+    # EXAM SESSIONS
+    # ----------------------------------------
+    connection.execute("""
+         CREATE TABLE IF NOT EXISTS exam_sessions (
+             id INTEGER PRIMARY KEY AUTOINCREMENT,
+             candidate_id INTEGER NOT NULL,
+             session_id TEXT UNIQUE NOT NULL,
+             status TEXT NOT NULL DEFAULT 'in_progress',
+             started_at TEXT NOT NULL,
+             paused_at TEXT,
+             resumed_at TEXT,
+             submitted_at TEXT,
+             FOREIGN KEY (candidate_id) REFERENCES candidates(id)
+         )
+     """)
+
+
     result = connection.execute("SELECT * FROM face_events").fetchall()
 
     print("Number of rows:", len(result))
