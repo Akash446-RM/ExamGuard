@@ -7,16 +7,22 @@ from datetime import datetime
 UPLOAD_FOLDER = "static/uploads"
 
 
-def save_captured_photo(image_data):
+def capture_photo(image_data):
 
     # Create upload folder if it does not exist
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
     # Convert image bytes into NumPy array
-    image_array = np.frombuffer(image_data, np.uint8)
+    image_array = np.frombuffer(
+        image_data,
+        np.uint8
+    )
 
     # Convert image data into an OpenCV image
-    frame = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
+    frame = cv2.imdecode(
+        image_array,
+        cv2.IMREAD_COLOR
+    )
 
     # Check whether OpenCV successfully decoded the image
     if frame is None:
@@ -35,6 +41,9 @@ def save_captured_photo(image_data):
     )
 
     # Save image using OpenCV
-    cv2.imwrite(photo_path, frame)
+    cv2.imwrite(
+        photo_path,
+        frame
+    )
 
     return photo_path

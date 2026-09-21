@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,16 +13,24 @@
 
     <style>
 
+        /* ==================================================
+           GENERAL
+        ================================================== */
+
         body {
+
             margin: 0;
+
             font-family: Arial, sans-serif;
+
             background-color: #f4f6f8;
+
         }
 
 
-        /* =========================
+        /* ==================================================
            HEADER
-        ========================= */
+        ================================================== */
 
         .header {
 
@@ -38,24 +45,33 @@
             justify-content: space-between;
 
             align-items: center;
+
         }
 
 
-        /* =========================
+        .header h2 {
+
+            margin: 0;
+
+        }
+
+
+        /* ==================================================
            MAIN CONTAINER
-        ========================= */
+        ================================================== */
 
         .container {
 
             width: 85%;
 
             margin: 30px auto;
+
         }
 
 
-        /* =========================
+        /* ==================================================
            MONITORING BOX
-        ========================= */
+        ================================================== */
 
         .monitor-box {
 
@@ -69,12 +85,13 @@
 
             box-shadow:
                 0 2px 8px rgba(0, 0, 0, 0.1);
+
         }
 
 
-        /* =========================
+        /* ==================================================
            CAMERA
-        ========================= */
+        ================================================== */
 
         #camera {
 
@@ -89,40 +106,45 @@
             display: block;
 
             margin-top: 10px;
+
         }
 
 
-        /* =========================
+        /* ==================================================
            STATUS
-        ========================= */
+        ================================================== */
 
         .status {
 
             font-weight: bold;
+
         }
 
 
         #camera-status {
 
             color: orange;
+
         }
 
 
         #face-status {
 
             color: orange;
+
         }
 
 
         #browser-status {
 
             color: green;
+
         }
 
 
-        /* =========================
+        /* ==================================================
            QUESTION
-        ========================= */
+        ================================================== */
 
         .question {
 
@@ -136,6 +158,14 @@
 
             box-shadow:
                 0 2px 8px rgba(0, 0, 0, 0.1);
+
+        }
+
+
+        .question h3 {
+
+            margin-top: 0;
+
         }
 
 
@@ -144,8 +174,33 @@
             display: block;
 
             margin: 15px 0;
+
         }
 
+
+        .option input {
+
+            margin-right: 8px;
+
+        }
+
+
+        pre {
+
+            background-color: #f5f5f5;
+
+            padding: 15px;
+
+            border-radius: 5px;
+
+            overflow-x: auto;
+
+        }
+
+
+        /* ==================================================
+           BUTTON
+        ================================================== */
 
         button {
 
@@ -160,18 +215,55 @@
             color: white;
 
             cursor: pointer;
+
         }
 
 
         button:hover {
 
             background-color: #0056b3;
+
         }
 
 
-        /* =========================
+        /* ==================================================
+           SUBMIT BUTTON
+        ================================================== */
+
+        .submit-section {
+
+            text-align: center;
+
+            padding: 25px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .submit-button {
+
+            padding: 14px 30px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            background-color: #28a745;
+
+        }
+
+
+        .submit-button:hover {
+
+            background-color: #218838;
+
+        }
+
+
+        /* ==================================================
            EVENT LOG
-        ========================= */
+        ================================================== */
 
         #event-log {
 
@@ -186,16 +278,42 @@
             font-size: 14px;
 
             border: 1px solid #ddd;
+
         }
 
 
-        /* =========================
+        /* ==================================================
            CANVAS
-        ========================= */
+        ================================================== */
 
         #canvas {
 
             display: none;
+
+        }
+
+
+        /* ==================================================
+           RESPONSIVE
+        ================================================== */
+
+        @media (max-width: 700px) {
+
+            .container {
+
+                width: 95%;
+
+            }
+
+
+            #camera {
+
+                width: 100%;
+
+                height: auto;
+
+            }
+
         }
 
     </style>
@@ -212,7 +330,9 @@
 
 <div class="header">
 
-    <h2>ExamGuard</h2>
+    <h2>
+        ExamGuard
+    </h2>
 
     <span>
         Online Examination
@@ -230,7 +350,7 @@
 
 
     <!-- ==================================================
-         MONITORING STATUS
+         EXAMINATION MONITORING
     ================================================== -->
 
     <div class="monitor-box">
@@ -294,7 +414,7 @@
         </video>
 
 
-        <!-- CANVAS USED TO CAPTURE FRAME -->
+        <!-- CANVAS -->
 
         <canvas
             id="canvas">
@@ -305,7 +425,7 @@
 
 
     <!-- ==================================================
-         QUESTION
+         QUESTION 1
     ================================================== -->
 
     <div class="question">
@@ -316,19 +436,13 @@
 
 
         <p>
-
-            What is the output of the following
-            Python code?
-
+            What is the output of the following Python code?
         </p>
 
 
         <pre>
-
 x = 10
-
 print(x + 5)
-
         </pre>
 
 
@@ -336,7 +450,7 @@ print(x + 5)
 
             <input
                 type="radio"
-                name="answer"
+                name="question1"
                 value="10">
 
             10
@@ -348,7 +462,7 @@ print(x + 5)
 
             <input
                 type="radio"
-                name="answer"
+                name="question1"
                 value="15">
 
             15
@@ -360,7 +474,7 @@ print(x + 5)
 
             <input
                 type="radio"
-                name="answer"
+                name="question1"
                 value="20">
 
             20
@@ -372,21 +486,657 @@ print(x + 5)
 
             <input
                 type="radio"
-                name="answer"
+                name="question1"
                 value="25">
 
             25
 
         </label>
 
+    </div>
 
-        <br>
 
+
+    <!-- ==================================================
+         QUESTION 2
+    ================================================== -->
+
+    <div class="question">
+
+        <h3>
+            Question 2
+        </h3>
+
+
+        <p>
+            Which keyword is used to define a function in Python?
+        </p>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question2"
+                value="function">
+
+            function
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question2"
+                value="def">
+
+            def
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question2"
+                value="fun">
+
+            fun
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question2"
+                value="define">
+
+            define
+
+        </label>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         QUESTION 3
+    ================================================== -->
+
+    <div class="question">
+
+        <h3>
+            Question 3
+        </h3>
+
+
+        <p>
+            Which data type is used to store True or False
+            values in Python?
+        </p>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question3"
+                value="int">
+
+            int
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question3"
+                value="string">
+
+            string
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question3"
+                value="boolean">
+
+            boolean
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question3"
+                value="float">
+
+            float
+
+        </label>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         QUESTION 4
+    ================================================== -->
+
+    <div class="question">
+
+        <h3>
+            Question 4
+        </h3>
+
+
+        <p>
+            What will be the output of the following code?
+        </p>
+
+
+        <pre>
+a = 5
+b = 3
+print(a * b)
+        </pre>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question4"
+                value="8">
+
+            8
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question4"
+                value="15">
+
+            15
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question4"
+                value="2">
+
+            2
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question4"
+                value="53">
+
+            53
+
+        </label>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         QUESTION 5
+    ================================================== -->
+
+    <div class="question">
+
+        <h3>
+            Question 5
+        </h3>
+
+
+        <p>
+            Which symbol is used to create a list in Python?
+        </p>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question5"
+                value="[]">
+
+            []
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question5"
+                value="{}">
+
+            {}
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question5"
+                value="()">
+
+            ()
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question5"
+                value="<>">
+
+            &lt;&gt;
+
+        </label>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         QUESTION 6
+    ================================================== -->
+
+    <div class="question">
+
+        <h3>
+            Question 6
+        </h3>
+
+
+        <p>
+            Which keyword is commonly used to iterate
+            through a sequence in Python?
+        </p>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question6"
+                value="loop">
+
+            loop
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question6"
+                value="for">
+
+            for
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question6"
+                value="repeat">
+
+            repeat
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question6"
+                value="iterate">
+
+            iterate
+
+        </label>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         QUESTION 7
+    ================================================== -->
+
+    <div class="question">
+
+        <h3>
+            Question 7
+        </h3>
+
+
+        <p>
+            What is the output of the following Python code?
+        </p>
+
+
+        <pre>
+x = 10
+
+if x > 5:
+    print("Yes")
+        </pre>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question7"
+                value="No">
+
+            No
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question7"
+                value="Yes">
+
+            Yes
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question7"
+                value="10">
+
+            10
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question7"
+                value="Error">
+
+            Error
+
+        </label>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         QUESTION 8
+    ================================================== -->
+
+    <div class="question">
+
+        <h3>
+            Question 8
+        </h3>
+
+
+        <p>
+            Which function is used to find the length
+            of a list in Python?
+        </p>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question8"
+                value="size">
+
+            size()
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question8"
+                value="length">
+
+            length()
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question8"
+                value="len">
+
+            len()
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question8"
+                value="count">
+
+            count()
+
+        </label>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         QUESTION 9
+    ================================================== -->
+
+    <div class="question">
+
+        <h3>
+            Question 9
+        </h3>
+
+
+        <p>
+            Which symbol is used for a single-line
+            comment in Python?
+        </p>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question9"
+                value="//">
+
+            //
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question9"
+                value="#">
+
+            #
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question9"
+                value="/*">
+
+            /*
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question9"
+                value="--">
+
+            --
+
+        </label>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         QUESTION 10
+    ================================================== -->
+
+    <div class="question">
+
+        <h3>
+            Question 10
+        </h3>
+
+
+        <p>
+            What is the output of the following Python code?
+        </p>
+
+
+        <pre>
+numbers = [1, 2, 3]
+print(len(numbers))
+        </pre>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question10"
+                value="1">
+
+            1
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question10"
+                value="2">
+
+            2
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question10"
+                value="3">
+
+            3
+
+        </label>
+
+
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question10"
+                value="4">
+
+            4
+
+        </label>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         SUBMIT EXAM
+    ================================================== -->
+
+    <div class="question submit-section">
 
         <button
-            onclick="submitAnswer()">
+            type="button"
+            class="submit-button"
+            onclick="submitExam()">
 
-            Save Answer
+            Submit Exam
 
         </button>
 
@@ -461,33 +1211,19 @@ navigator.mediaDevices
 
     })
 
-
     .then(function(stream) {
 
-        /*
-        Connect webcam stream
-        to video element
-        */
-
         video.srcObject = stream;
-
 
         cameraStatus.innerText =
             "Connected";
 
-
         cameraStatus.style.color =
             "green";
-
-
-        /*
-        Start sending frames
-        */
 
         startFaceMonitoring();
 
     })
-
 
     .catch(function(error) {
 
@@ -496,10 +1232,8 @@ navigator.mediaDevices
             error
         );
 
-
         cameraStatus.innerText =
             "Camera access denied";
-
 
         cameraStatus.style.color =
             "red";
@@ -516,16 +1250,12 @@ navigator.mediaDevices
 function startFaceMonitoring() {
 
     /*
-    Capture one frame
-    every 2 seconds
+    Capture one frame every 2 seconds.
     */
 
     setInterval(
-
         captureAndSendFrame,
-
         2000
-
     );
 
 }
@@ -540,13 +1270,11 @@ function startFaceMonitoring() {
 function captureAndSendFrame() {
 
     /*
-    Make canvas same size
-    as video
+    Make canvas same size as video.
     */
 
     canvas.width =
         video.videoWidth;
-
 
     canvas.height =
         video.videoHeight;
@@ -554,7 +1282,7 @@ function captureAndSendFrame() {
 
     /*
     Draw current webcam frame
-    onto canvas
+    onto canvas.
     */
 
     context.drawImage(
@@ -573,14 +1301,12 @@ function captureAndSendFrame() {
 
 
     /*
-    Convert canvas image
-    into JPEG
+    Convert canvas image into JPEG.
     */
 
     canvas.toBlob(
 
         function(blob) {
-
 
             if (!blob) {
 
@@ -594,12 +1320,17 @@ function captureAndSendFrame() {
 
 
             /*
-            Create FormData
+            Create FormData.
             */
 
             const formData =
                 new FormData();
 
+
+            /*
+            IMPORTANT:
+            app.py expects "image".
+            */
 
             formData.append(
 
@@ -613,7 +1344,7 @@ function captureAndSendFrame() {
 
 
             /*
-            Send frame to Flask
+            Send frame to Flask.
             */
 
             fetch(
@@ -630,16 +1361,13 @@ function captureAndSendFrame() {
 
             )
 
-
             .then(function(response) {
 
                 return response.json();
 
             })
 
-
             .then(function(data) {
-
 
                 console.log(
                     "Face state:",
@@ -648,7 +1376,7 @@ function captureAndSendFrame() {
 
 
                 /*
-                Update face status
+                Update face status.
                 */
 
                 if (
@@ -658,7 +1386,6 @@ function captureAndSendFrame() {
 
                     faceStatus.innerText =
                         "Face Detected";
-
 
                     faceStatus.style.color =
                         "green";
@@ -673,14 +1400,12 @@ function captureAndSendFrame() {
                     faceStatus.innerText =
                         "Face Absent";
 
-
                     faceStatus.style.color =
                         "red";
 
                 }
 
             })
-
 
             .catch(function(error) {
 
@@ -714,10 +1439,8 @@ function logBrowserEvent(
     details
 ) {
 
-
     /*
-    Send browser event
-    to Flask
+    Send browser event to Flask.
     */
 
     fetch(
@@ -728,14 +1451,12 @@ function logBrowserEvent(
 
             method: "POST",
 
-
             headers: {
 
                 "Content-Type":
                     "application/json"
 
             },
-
 
             body: JSON.stringify({
 
@@ -751,13 +1472,11 @@ function logBrowserEvent(
 
     )
 
-
     .then(function(response) {
 
         return response.json();
 
     })
-
 
     .then(function(data) {
 
@@ -770,7 +1489,6 @@ function logBrowserEvent(
         );
 
     })
-
 
     .catch(function(error) {
 
@@ -786,8 +1504,7 @@ function logBrowserEvent(
 
 
     /*
-    Also show event
-    on screen
+    Also show event on screen.
     */
 
     displayEvent(
@@ -812,7 +1529,6 @@ function displayEvent(
     details
 ) {
 
-
     const eventLog =
         document.getElementById(
             "event-log"
@@ -825,7 +1541,9 @@ function displayEvent(
 
 
     const message =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     message.innerText =
@@ -843,7 +1561,7 @@ function displayEvent(
 
 
     /*
-    Scroll to latest event
+    Scroll to latest event.
     */
 
     eventLog.scrollTop =
@@ -863,7 +1581,6 @@ window.addEventListener(
     "load",
 
     function() {
-
 
         logBrowserEvent(
 
@@ -890,11 +1607,9 @@ document.addEventListener(
 
     function() {
 
-
         if (
             document.hidden
         ) {
-
 
             logBrowserEvent(
 
@@ -907,7 +1622,6 @@ document.addEventListener(
         }
 
         else {
-
 
             logBrowserEvent(
 
@@ -936,7 +1650,6 @@ window.addEventListener(
 
     function() {
 
-
         logBrowserEvent(
 
             "focus_lost",
@@ -961,7 +1674,6 @@ window.addEventListener(
     "focus",
 
     function() {
-
 
         logBrowserEvent(
 
@@ -988,7 +1700,6 @@ document.addEventListener(
 
     function() {
 
-
         logBrowserEvent(
 
             "copy_attempt",
@@ -1013,7 +1724,6 @@ document.addEventListener(
     "paste",
 
     function() {
-
 
         logBrowserEvent(
 
@@ -1040,7 +1750,6 @@ document.addEventListener(
 
     function() {
 
-
         logBrowserEvent(
 
             "cut_attempt",
@@ -1066,9 +1775,8 @@ document.addEventListener(
 
     function(event) {
 
-
         /*
-        Stop normal context menu
+        Stop normal context menu.
         */
 
         event.preventDefault();
@@ -1099,13 +1807,11 @@ document.addEventListener(
 
     function(event) {
 
-
         /*
         We record only that
         keyboard activity happened.
 
-        We do NOT store
-        the actual key.
+        We do NOT store the actual key.
         */
 
         logBrowserEvent(
@@ -1136,7 +1842,6 @@ document.addEventListener(
 
     function() {
 
-
         const currentTime =
             Date.now();
 
@@ -1153,7 +1858,6 @@ document.addEventListener(
             >= 5000
 
         ) {
-
 
             lastMouseEventTime =
                 currentTime;
@@ -1180,11 +1884,26 @@ document.addEventListener(
    ANSWER SELECTED
 ===================================================== */
 
+/*
+IMPORTANT:
+
+Each question now has its own name:
+
+question1
+question2
+question3
+...
+question10
+
+Therefore we select all radio buttons
+instead of searching only for name="answer".
+*/
+
 const answerOptions =
 
     document.querySelectorAll(
 
-        'input[name="answer"]'
+        'input[type="radio"]'
 
     );
 
@@ -1193,13 +1912,11 @@ answerOptions.forEach(
 
     function(option) {
 
-
         option.addEventListener(
 
             "change",
 
             function() {
-
 
                 logBrowserEvent(
 
@@ -1221,27 +1938,63 @@ answerOptions.forEach(
 
 /* =====================================================
    PART 18
-   SAVE ANSWER
+   SUBMIT EXAM
 ===================================================== */
 
-function submitAnswer() {
+function submitExam() {
 
+    /*
+    Check whether every question
+    has an answer.
+    */
+
+    for (
+        let questionNumber = 1;
+        questionNumber <= 10;
+        questionNumber++
+    ) {
+
+        const selectedAnswer =
+            document.querySelector(
+                'input[name="question' +
+                questionNumber +
+                '"]:checked'
+            );
+
+
+        if (!selectedAnswer) {
+
+            alert(
+                "Please answer Question " +
+                questionNumber +
+                " before submitting the exam."
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    /*
+    Log exam submission.
+    */
 
     logBrowserEvent(
 
-        "answer_saved",
+        "exam_submitted",
 
-        "Candidate saved answer"
+        "Candidate submitted the examination"
 
     );
 
 
     alert(
-        "Answer saved successfully"
+        "Exam submitted successfully."
     );
 
 }
-
 
 </script>
 
@@ -1249,4 +2002,3 @@ function submitAnswer() {
 </body>
 
 </html>
-```
