@@ -2,13 +2,17 @@ import sqlite3
 import os
 
 
-DATABASE = "database/examguard.db"
+DATABASE_DIR = "database"
+DATABASE = os.path.join(DATABASE_DIR, "examguard.db")
 
 
-# ----------------------------------------
+# ============================================================
 # DATABASE CONNECTION
-# ----------------------------------------
+# ============================================================
 def get_db():
+
+    # Make sure database folder exists
+    os.makedirs(DATABASE_DIR, exist_ok=True)
 
     connection = sqlite3.connect(DATABASE)
 
@@ -16,28 +20,28 @@ def get_db():
     # candidate["id"]
     # candidate["name"]
     # candidate["email"]
-    # candidate["password"]
-    # candidate["photo"]
-    # candidate["created_at"]
-
     connection.row_factory = sqlite3.Row
+
+    # Enable foreign key support
+    connection.execute("PRAGMA foreign_keys = ON")
+
     return connection
 
 
-# ----------------------------------------
+# ============================================================
 # INITIALIZE DATABASE
-# ----------------------------------------
+# ============================================================
 def init_db():
 
     # Create database folder if it does not exist
-    os.makedirs("database", exist_ok=True)
+    os.makedirs(DATABASE_DIR, exist_ok=True)
 
     connection = get_db()
 
 
-    # ----------------------------------------
-    # CANDIDATES TABLE
-    # ----------------------------------------
+    # ========================================================
+    # 1. CANDIDATES TABLE
+    # ========================================================
     connection.execute("""
         CREATE TABLE IF NOT EXISTS candidates (
 
@@ -56,12 +60,17 @@ def init_db():
     """)
 
 
-    # ----------------------------------------
+    # --------------------------------------------------------
     # CHECK CREATED_AT COLUMN
-    # ----------------------------------------
-    # This protects an older existing database.
-    # If created_at already exists, nothing happens.
-    # If it does not exist, the column is added.
+    # --------------------------------------------------------
+    # Protects older existing databases.
+    #
+    # If created_at already exists:
+    #     Nothing happens.
+    #
+    # If created_at does not exist:
+    #     It will be added.
+    # --------------------------------------------------------
 
     columns = connection.execute(
         "PRAGMA table_info(candidates)"
@@ -74,14 +83,15 @@ def init_db():
 
     if "created_at" not in column_names:
 
-        connection.execute(
-            "ALTER TABLE candidates ADD COLUMN created_at TEXT"
-        )
+        connection.execute("""
+            ALTER TABLE candidates
+            ADD COLUMN created_at TEXT
+        """)
 
 
-    # ----------------------------------------
-    # FACE MONITORING EVENTS
-    # ----------------------------------------
+    # ========================================================
+    # 2. FACE MONITORING EVENTS
+    # ========================================================
     connection.execute("""
         CREATE TABLE IF NOT EXISTS face_events (
 
@@ -105,9 +115,9 @@ def init_db():
     """)
 
 
-    # ----------------------------------------
-    # BROWSER ACTIVITY EVENTS
-    # ----------------------------------------
+    # ========================================================
+    # 3. BROWSER ACTIVITY EVENTS
+    # ========================================================
     connection.execute("""
         CREATE TABLE IF NOT EXISTS browser_events (
 
@@ -129,9 +139,9 @@ def init_db():
     """)
 
 
-    # ----------------------------------------
-    # SUSPICIOUS EVENTS
-    # ----------------------------------------
+    # ========================================================
+    # 4. SUSPICIOUS EVENTS
+    # ========================================================
     connection.execute("""
         CREATE TABLE IF NOT EXISTS suspicious_events (
 
@@ -154,39 +164,190 @@ def init_db():
         )
     """)
 
-    # ----------------------------------------
-    # EXAM SESSIONS
-    # ----------------------------------------
+
+    # ========================================================
+    # 5. EXAM SESSIONS
+    # ========================================================
     connection.execute("""
-         CREATE TABLE IF NOT EXISTS exam_sessions (
-             id INTEGER PRIMARY KEY AUTOINCREMENT,
-             candidate_id INTEGER NOT NULL,
-             session_id TEXT UNIQUE NOT NULL,
-             status TEXT NOT NULL DEFAULT 'in_progress',
-             started_at TEXT NOT NULL,
-             paused_at TEXT,
-             resumed_at TEXT,
-             submitted_at TEXT,
-             FOREIGN KEY (candidate_id) REFERENCES candidates(id)
-         )
-     """)
+        CREATE TABLE IF NOT EXISTS exam_sessions (
+
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            candidate_id INTEGER NOT NULL,
+
+            session_id TEXT UNIQUE NOT NULL,
+
+            status TEXT NOT NULL DEFAULT 'in_progress',
+
+            started_at TEXT NOT NULL,
+
+            paused_at TEXT,
+
+            resumed_at TEXT,
+
+            submitted_at TEXT,
+
+            FOREIGN KEY (candidate_id)
+                REFERENCES candidates(id)
+        )
+    """)
 
 
-    result = connection.execute("SELECT * FROM face_events").fetchall()
+    # ========================================================
+    # 6. INTEGRITY SCORES
+    # ========================================================
+    connection.execute("""
+        CREATE TABLE IF NOT EXISTS integrity_scores (
 
-    print("Number of rows:", len(result))
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-    for row in result:
-        print(dict(row)) 
+            session_id TEXT UNIQUE NOT NULL,
+
+            candidate_id INTEGER NOT NULL,
+
+            event_penalty REAL NOT NULL,
+
+            face_presence_ratio REAL NOT NULL,
+
+            integrity_score REAL NOT NULL,
+
+            risk_level TEXT NOT NULL,
+
+            computed_at TEXT NOT NULL,
+
+            FOREIGN KEY (candidate_id)
+                REFERENCES candidates(id)
+        )
+    """)
 
 
-    # ----------------------------------------
+    # ========================================================
+    # 7. ALERTS
+    # ========================================================
+    # Used by alert_manager.py
+    #
+    # Stores alerts generated when suspicious/risky
+    # activity is detected.
+    # ========================================================
+
+    connection.execute("""
+        CREATE TABLE IF NOT EXISTS alerts (
+
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            candidate_id INTEGER NOT NULL,
+
+            session_id TEXT NOT NULL,
+
+            alert_type TEXT NOT NULL,
+
+            severity TEXT NOT NULL,
+
+            message TEXT NOT NULL,
+
+            created_at TEXT NOT NULL,
+
+            status TEXT NOT NULL DEFAULT 'open',
+
+            FOREIGN KEY (candidate_id)
+                REFERENCES candidates(id)
+        )
+    """)
+
+
+    # ========================================================
+    # 8. INCIDENT LOGS
+    # ========================================================
+    # Used by incident_logger.py
+    #
+    # Stores suspicious incidents detected during an exam.
+    # ========================================================
+
+    connection.execute("""
+        CREATE TABLE IF NOT EXISTS incident_logs (
+
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            candidate_id INTEGER NOT NULL,
+
+            session_id TEXT NOT NULL,
+
+            incident_type TEXT NOT NULL,
+
+            severity TEXT NOT NULL,
+
+            description TEXT NOT NULL,
+
+            created_at TEXT NOT NULL,
+
+            FOREIGN KEY (candidate_id)
+                REFERENCES candidates(id)
+        )
+    """)
+
+
+    # ========================================================
+    # 9. EVIDENCE
+    # ========================================================
+    # Stores evidence associated with suspicious activity.
+    #
+    # Example:
+    #   screenshot
+    #   image
+    #   browser evidence
+    # ========================================================
+
+    connection.execute("""
+        CREATE TABLE IF NOT EXISTS evidence (
+
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            candidate_id INTEGER NOT NULL,
+
+            session_id TEXT NOT NULL,
+
+            evidence_type TEXT NOT NULL,
+
+            filename TEXT,
+
+            mime_type TEXT NOT NULL,
+
+            file_data BLOB NOT NULL,
+
+            sha256_hash TEXT NOT NULL,
+
+            created_at TEXT NOT NULL,
+
+            FOREIGN KEY (candidate_id)
+                REFERENCES candidates(id)
+        )
+    """)
+
+
+    # ========================================================
     # SAVE DATABASE CHANGES
-    # ----------------------------------------
+    # ========================================================
+
     connection.commit()
 
 
-    # ----------------------------------------
+    # ========================================================
     # CLOSE DATABASE CONNECTION
-    # ----------------------------------------
+    # ========================================================
+
     connection.close()
+
+
+
+
+# ============================================================
+# RUN DIRECTLY
+# ============================================================
+if __name__ == "__main__":
+
+    init_db()
+
+    print("======================================")
+    print("ExamGuard Database Initialized")
+    print("======================================")
+    print(f"Database: {DATABASE}")

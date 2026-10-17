@@ -5,40 +5,339 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>ExamGuard Examination</title>
+    <title>ExamGuard | Python Foundations Assessment</title>
 
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
     <style>
 
-        /* ==================================================
-           GENERAL
-        ================================================== */
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
 
-        body {
-
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            font-family: Arial, sans-serif;
+        :root {
 
-            background-color: #f4f6f8;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
 
+            --success: #16a34a;
+            --success-bg: #dcfce7;
+
+            --danger: #dc2626;
+            --danger-bg: #fee2e2;
+
+            --warning: #d97706;
+            --warning-bg: #fef3c7;
+
+            --dark: #0f172a;
+            --dark-2: #1e293b;
+
+            --background: #f1f5f9;
+
+            --white: #ffffff;
+
+            --text: #0f172a;
+            --muted: #64748b;
+
+            --border: #e2e8f0;
+
+            --shadow-sm:
+                0 2px 8px rgba(15, 23, 42, 0.05);
+
+            --shadow-md:
+                0 8px 25px rgba(15, 23, 42, 0.08);
+
+            --radius: 14px;
         }
 
 
-        /* ==================================================
+        body {
+
+            font-family: "Inter", sans-serif;
+
+            background:
+                #f1f5f9;
+
+            color: var(--text);
+
+            min-height: 100vh;
+        }
+
+
+        button {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
            HEADER
-        ================================================== */
+        ===================================================== */
 
-        .header {
+        .topbar {
 
-            background-color: #222;
+            height: 68px;
+
+            background: var(--dark);
 
             color: white;
 
-            padding: 15px 30px;
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 28px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            box-shadow:
+                0 2px 10px rgba(0,0,0,0.15);
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .brand-icon {
+
+            width: 38px;
+            height: 38px;
+
+            border-radius: 9px;
+
+            background: var(--primary);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 19px;
+        }
+
+
+        .brand-name {
+
+            font-size: 18px;
+
+            font-weight: 800;
+        }
+
+
+        .brand-name span {
+
+            color: #60a5fa;
+        }
+
+
+        .exam-header-center {
+
+            text-align: center;
+        }
+
+
+        .exam-header-center strong {
+
+            display: block;
+
+            font-size: 14px;
+        }
+
+
+        .exam-header-center span {
+
+            display: block;
+
+            color: #94a3b8;
+
+            font-size: 11px;
+
+            margin-top: 2px;
+        }
+
+
+        .timer-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            background: #1e293b;
+
+            border: 1px solid #334155;
+
+            padding: 8px 14px;
+
+            border-radius: 9px;
+        }
+
+
+        .timer-icon {
+
+            font-size: 17px;
+        }
+
+
+        .timer {
+
+            font-size: 16px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            min-width: 60px;
+
+            text-align: center;
+        }
+
+
+        .timer.warning {
+
+            color: #fbbf24;
+        }
+
+
+        .timer.danger {
+
+            color: #f87171;
+        }
+
+
+        /* =====================================================
+           PAGE
+        ===================================================== */
+
+        .page {
+
+            width: 94%;
+
+            max-width: 1450px;
+
+            margin: 24px auto 50px;
+
+            display: grid;
+
+            grid-template-columns:
+                300px
+                1fr;
+
+            gap: 22px;
+
+            align-items: start;
+        }
+
+
+        /* =====================================================
+           LEFT SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 18px;
+
+            position: sticky;
+
+            top: 90px;
+        }
+
+
+        .side-card {
+
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            box-shadow: var(--shadow-sm);
+
+            overflow: hidden;
+        }
+
+
+        .side-card-header {
+
+            padding: 17px 18px;
+
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .side-card-header h3 {
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        .live-badge {
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            color: #166534;
+
+            background: var(--success-bg);
+
+            padding: 5px 8px;
+
+            border-radius: 20px;
+        }
+
+
+        .monitor-body {
+
+            padding: 16px;
+        }
+
+
+        /* =====================================================
+           STATUS ROW
+        ===================================================== */
+
+        .status-row {
 
             display: flex;
 
@@ -46,274 +345,1035 @@
 
             align-items: center;
 
+            padding: 7px 0;
+
+            font-size: 12px;
         }
 
 
-        .header h2 {
+        .status-label {
 
-            margin: 0;
-
+            color: var(--muted);
         }
 
 
-        /* ==================================================
-           MAIN CONTAINER
-        ================================================== */
+        .status-pill {
 
-        .container {
+            padding: 5px 9px;
 
-            width: 85%;
+            border-radius: 20px;
 
-            margin: 30px auto;
+            font-size: 10px;
 
+            font-weight: 700;
+
+            background: #f1f5f9;
+
+            color: var(--muted);
         }
 
 
-        /* ==================================================
-           MONITORING BOX
-        ================================================== */
+        .status-pill.success {
 
-        .monitor-box {
+            background: var(--success-bg);
 
-            background-color: white;
-
-            padding: 20px;
-
-            border-radius: 8px;
-
-            margin-bottom: 20px;
-
-            box-shadow:
-                0 2px 8px rgba(0, 0, 0, 0.1);
-
+            color: #166534;
         }
 
 
-        /* ==================================================
-           CAMERA
-        ================================================== */
+        .status-pill.danger {
 
-        #camera {
+            background: var(--danger-bg);
 
-            width: 400px;
+            color: #991b1b;
+        }
 
-            height: 300px;
 
-            background-color: black;
+        .status-pill.warning {
 
-            border-radius: 8px;
+            background: var(--warning-bg);
+
+            color: #92400e;
+        }
+
+
+        /* =====================================================
+           VIDEO
+        ===================================================== */
+
+        .camera-container {
+
+            margin-top: 12px;
+
+            position: relative;
+
+            background: #020617;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            aspect-ratio: 4 / 3;
+        }
+
+
+        #video {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
 
             display: block;
 
-            margin-top: 10px;
-
+            transform: scaleX(-1);
         }
 
 
-        /* ==================================================
-           STATUS
-        ================================================== */
+        .camera-overlay {
 
-        .status {
+            position: absolute;
 
-            font-weight: bold;
+            top: 10px;
 
+            left: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            background: rgba(15,23,42,0.8);
+
+            color: white;
+
+            padding: 5px 8px;
+
+            border-radius: 6px;
+
+            font-size: 9px;
+
+            font-weight: 700;
         }
 
 
-        #camera-status {
+        .record-dot {
 
-            color: orange;
+            width: 7px;
 
+            height: 7px;
+
+            background: #ef4444;
+
+            border-radius: 50%;
+
+            animation: pulse 1.5s infinite;
         }
 
 
-        #face-status {
+        @keyframes pulse {
 
-            color: orange;
+            0% {
+                opacity: 1;
+            }
 
+            50% {
+                opacity: .35;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
 
-        #browser-status {
+        .camera-message {
 
-            color: green;
+            position: absolute;
 
+            inset: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #94a3b8;
+
+            font-size: 12px;
+
+            text-align: center;
+
+            padding: 20px;
         }
 
 
-        /* ==================================================
-           QUESTION
-        ================================================== */
+        #canvas {
 
-        .question {
+            display: none;
+        }
 
-            background-color: white;
 
-            padding: 25px;
+        /* =====================================================
+           MONITORING INFO
+        ===================================================== */
+
+        .monitor-feature {
+
+            display: flex;
+
+            gap: 10px;
+
+            align-items: flex-start;
+
+            padding: 10px 0;
+
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+
+        .monitor-feature:last-child {
+
+            border-bottom: none;
+        }
+
+
+        .monitor-icon {
+
+            width: 30px;
+
+            height: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #eff6ff;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            flex-shrink: 0;
+        }
+
+
+        .monitor-text strong {
+
+            display: block;
+
+            font-size: 11px;
+
+            margin-bottom: 2px;
+        }
+
+
+        .monitor-text span {
+
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            line-height: 1.4;
+        }
+
+
+        /* =====================================================
+           ACTIVITY LOG
+        ===================================================== */
+
+        .activity-log {
+
+            height: 155px;
+
+            overflow-y: auto;
+
+            background: #020617;
+
+            padding: 10px;
 
             border-radius: 8px;
 
-            margin-bottom: 20px;
+            font-family: monospace;
 
-            box-shadow:
-                0 2px 8px rgba(0, 0, 0, 0.1);
+            font-size: 9px;
 
+            color: #93c5fd;
+
+            line-height: 1.8;
         }
 
 
-        .question h3 {
+        .activity-log::-webkit-scrollbar {
 
-            margin-top: 0;
+            width: 5px;
+        }
 
+
+        .activity-log::-webkit-scrollbar-thumb {
+
+            background: #475569;
+
+            border-radius: 10px;
+        }
+
+
+        /* =====================================================
+           MAIN CONTENT
+        ===================================================== */
+
+        .main-content {
+
+            min-width: 0;
+        }
+
+
+        /* =====================================================
+           EXAM INTRO
+        ===================================================== */
+
+        .exam-intro {
+
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            box-shadow: var(--shadow-sm);
+
+            padding: 22px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .exam-title-row {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+
+        .exam-title h1 {
+
+            font-size: 23px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .exam-title p {
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        .proctored-badge {
+
+            background: #eff6ff;
+
+            color: #1d4ed8;
+
+            padding: 7px 11px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
+
+        .progress-area {
+
+            margin-top: 18px;
+        }
+
+
+        .progress-top {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 7px;
+        }
+
+
+        .progress-label {
+
+            font-size: 11px;
+
+            color: var(--muted);
+        }
+
+
+        .progress-count {
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            color: var(--primary);
+        }
+
+
+        .progress-track {
+
+            width: 100%;
+
+            height: 7px;
+
+            background: #e2e8f0;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+
+        .progress-bar {
+
+            width: 0%;
+
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #2563eb,
+                    #60a5fa
+                );
+
+            border-radius: 20px;
+
+            transition: width .3s ease;
+        }
+
+
+        /* =====================================================
+           QUESTION NAVIGATOR
+        ===================================================== */
+
+        .question-nav {
+
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            padding: 17px;
+
+            margin-bottom: 18px;
+
+            box-shadow: var(--shadow-sm);
+        }
+
+
+        .question-nav-title {
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            color: var(--muted);
+
+            margin-bottom: 11px;
+        }
+
+
+        .question-buttons {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 7px;
+        }
+
+
+        .question-btn {
+
+            width: 35px;
+
+            height: 35px;
+
+            border: 1px solid var(--border);
+
+            background: white;
+
+            color: var(--muted);
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            transition: .2s;
+        }
+
+
+        .question-btn:hover {
+
+            border-color: var(--primary);
+
+            color: var(--primary);
+        }
+
+
+        .question-btn.answered {
+
+            background: var(--success-bg);
+
+            border-color: #86efac;
+
+            color: #166534;
+        }
+
+
+        /* =====================================================
+           QUESTION CARD
+        ===================================================== */
+
+        .question-card {
+
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            padding: 25px;
+
+            margin-bottom: 18px;
+
+            box-shadow: var(--shadow-sm);
+        }
+
+
+        .question-card:target {
+
+            border-color: #93c5fd;
+        }
+
+
+        .question-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 18px;
+        }
+
+
+        .question-number {
+
+            color: var(--primary);
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: .6px;
+        }
+
+
+        .question-required {
+
+            color: #94a3b8;
+
+            font-size: 10px;
+        }
+
+
+        .question-text {
+
+            font-size: 16px;
+
+            line-height: 1.6;
+
+            font-weight: 600;
+
+            margin-bottom: 18px;
+        }
+
+
+        /* =====================================================
+           CODE BLOCK
+        ===================================================== */
+
+        .code-block {
+
+            background: #0f172a;
+
+            color: #e2e8f0;
+
+            border-radius: 9px;
+
+            padding: 17px;
+
+            margin-bottom: 17px;
+
+            overflow-x: auto;
+
+            font-family:
+                "Consolas",
+                "Courier New",
+                monospace;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           OPTIONS
+        ===================================================== */
+
+        .options {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 9px;
         }
 
 
         .option {
 
-            display: block;
+            display: flex;
 
-            margin: 15px 0;
+            align-items: center;
 
+            gap: 12px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 9px;
+
+            padding: 13px 15px;
+
+            cursor: pointer;
+
+            transition: .2s;
+
+            background: white;
+        }
+
+
+        .option:hover {
+
+            border-color: #93c5fd;
+
+            background: #f8fbff;
+        }
+
+
+        .option.selected {
+
+            border-color: var(--primary);
+
+            background: #eff6ff;
         }
 
 
         .option input {
 
-            margin-right: 8px;
+            width: 16px;
 
-        }
+            height: 16px;
 
-
-        pre {
-
-            background-color: #f5f5f5;
-
-            padding: 15px;
-
-            border-radius: 5px;
-
-            overflow-x: auto;
-
-        }
-
-
-        /* ==================================================
-           BUTTON
-        ================================================== */
-
-        button {
-
-            padding: 10px 20px;
-
-            border: none;
-
-            border-radius: 5px;
-
-            background-color: #007bff;
-
-            color: white;
+            accent-color: var(--primary);
 
             cursor: pointer;
 
+            flex-shrink: 0;
         }
 
 
-        button:hover {
+        .option-letter {
 
-            background-color: #0056b3;
+            width: 26px;
 
+            height: 26px;
+
+            border-radius: 6px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #f1f5f9;
+
+            color: #475569;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            flex-shrink: 0;
         }
 
 
-        /* ==================================================
-           SUBMIT BUTTON
-        ================================================== */
+        .option.selected .option-letter {
 
-        .submit-section {
+            background: var(--primary);
 
-            text-align: center;
-
-            padding: 25px;
-
-            margin-bottom: 30px;
-
+            color: white;
         }
 
 
-        .submit-button {
+        .option-text {
 
-            padding: 14px 30px;
+            font-size: 13px;
 
-            font-size: 16px;
+            color: #334155;
 
-            font-weight: bold;
-
-            background-color: #28a745;
-
+            line-height: 1.4;
         }
 
 
-        .submit-button:hover {
+        /* =====================================================
+           BOTTOM ACTION
+        ===================================================== */
 
-            background-color: #218838;
+        .submit-area {
 
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            padding: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            box-shadow: var(--shadow-sm);
+
+            margin-top: 10px;
         }
 
 
-        /* ==================================================
-           EVENT LOG
-        ================================================== */
+        .submit-info strong {
 
-        #event-log {
+            display: block;
 
-            background-color: #f8f9fa;
+            font-size: 13px;
 
-            padding: 10px;
-
-            height: 180px;
-
-            overflow-y: auto;
-
-            font-size: 14px;
-
-            border: 1px solid #ddd;
-
+            margin-bottom: 3px;
         }
 
 
-        /* ==================================================
-           CANVAS
-        ================================================== */
+        .submit-info span {
 
-        #canvas {
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+
+        .submit-btn {
+
+            border: none;
+
+            background: var(--primary);
+
+            color: white;
+
+            padding: 12px 25px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .submit-btn:hover {
+
+            background: var(--primary-dark);
+        }
+
+
+        /* =====================================================
+           CONFIRMATION MODAL
+        ===================================================== */
+
+        .modal-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(15,23,42,.65);
 
             display: none;
 
+            align-items: center;
+
+            justify-content: center;
+
+            z-index: 5000;
+
+            padding: 20px;
         }
 
 
-        /* ==================================================
+        .modal-overlay.show {
+
+            display: flex;
+        }
+
+
+        .modal {
+
+            width: 100%;
+
+            max-width: 440px;
+
+            background: white;
+
+            border-radius: 16px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 25px 60px rgba(0,0,0,.25);
+
+            text-align: center;
+        }
+
+
+        .modal-icon {
+
+            width: 55px;
+
+            height: 55px;
+
+            background: #dbeafe;
+
+            color: var(--primary);
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin: 0 auto 15px;
+
+            font-size: 24px;
+        }
+
+
+        .modal h2 {
+
+            font-size: 19px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .modal p {
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+            margin-bottom: 22px;
+        }
+
+
+        .modal-actions {
+
+            display: flex;
+
+            gap: 10px;
+        }
+
+
+        .modal-btn {
+
+            flex: 1;
+
+            border: none;
+
+            padding: 11px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .cancel-btn {
+
+            background: #f1f5f9;
+
+            color: #475569;
+        }
+
+
+        .confirm-btn {
+
+            background: var(--primary);
+
+            color: white;
+        }
+
+
+        /* =====================================================
            RESPONSIVE
-        ================================================== */
+        ===================================================== */
+
+        @media (max-width: 1000px) {
+
+            .page {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .sidebar {
+
+                position: static;
+
+                display: grid;
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+        }
+
 
         @media (max-width: 700px) {
 
-            .container {
+            .topbar {
+
+                padding: 0 15px;
+            }
+
+
+            .exam-header-center {
+
+                display: none;
+            }
+
+
+            .page {
 
                 width: 95%;
 
+                margin-top: 15px;
             }
 
 
-            #camera {
+            .sidebar {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .exam-title-row {
+
+                flex-direction: column;
+            }
+
+
+            .question-card {
+
+                padding: 18px;
+            }
+
+
+            .submit-area {
+
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+
+            .submit-btn {
 
                 width: 100%;
+            }
+        }
 
-                height: auto;
 
+        @media (max-width: 450px) {
+
+            .brand-name {
+
+                display: none;
             }
 
+
+            .timer-box {
+
+                padding: 7px 9px;
+            }
+
+
+            .question-card {
+
+                padding: 15px;
+            }
         }
 
     </style>
@@ -324,845 +1384,1462 @@
 <body>
 
 
-<!-- ==================================================
+<!-- =====================================================
      HEADER
-================================================== -->
+===================================================== -->
 
-<div class="header">
+<header class="topbar">
 
-    <h2>
-        ExamGuard
-    </h2>
 
-    <span>
-        Online Examination
-    </span>
+    <div class="brand">
+
+        <div class="brand-icon">
+            🛡️
+        </div>
+
+        <div class="brand-name">
+            Exam<span>Guard</span>
+        </div>
+
+    </div>
+
+
+    <div class="exam-header-center">
+
+        <strong>
+            Python Foundations Assessment
+        </strong>
+
+        <span>
+            Secure Proctored Examination
+        </span>
+
+    </div>
+
+
+    <div class="timer-box">
+
+        <div class="timer-icon">
+            ⏱️
+        </div>
+
+        <div
+            id="timer"
+            class="timer"
+        >
+            60:00
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN PAGE
+===================================================== -->
+
+<div class="page">
+
+
+    <!-- =================================================
+         LEFT SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- MONITORING CARD -->
+
+        <div class="side-card">
+
+            <div class="side-card-header">
+
+                <h3>
+                    Live Proctoring
+                </h3>
+
+                <span class="live-badge">
+                    ● LIVE
+                </span>
+
+            </div>
+
+
+            <div class="monitor-body">
+
+
+                <div class="status-row">
+
+                    <span class="status-label">
+                        Camera
+                    </span>
+
+                    <span
+                        id="cameraStatus"
+                        class="status-pill"
+                    >
+                        Connecting
+                    </span>
+
+                </div>
+
+
+                <div class="status-row">
+
+                    <span class="status-label">
+                        Face Detection
+                    </span>
+
+                    <span
+                        id="faceStatus"
+                        class="status-pill"
+                    >
+                        Checking
+                    </span>
+
+                </div>
+
+
+                <div class="status-row">
+
+                    <span class="status-label">
+                        Browser Guard
+                    </span>
+
+                    <span
+                        id="browserStatus"
+                        class="status-pill success"
+                    >
+                        Active
+                    </span>
+
+                </div>
+
+
+                <!-- CAMERA -->
+
+                <div class="camera-container">
+
+                    <video
+                        id="video"
+                        autoplay
+                        muted
+                        playsinline
+                    ></video>
+
+                    <div
+                        id="cameraMessage"
+                        class="camera-message"
+                    >
+                        Requesting camera access...
+                    </div>
+
+                    <div class="camera-overlay">
+
+                        <span class="record-dot"></span>
+
+                        MONITORING
+
+                    </div>
+
+                </div>
+
+
+                <canvas
+                    id="canvas"
+                ></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SECURITY CARD -->
+
+        <div class="side-card">
+
+            <div class="side-card-header">
+
+                <h3>
+                    Security Monitoring
+                </h3>
+
+            </div>
+
+
+            <div class="monitor-body">
+
+
+                <div class="monitor-feature">
+
+                    <div class="monitor-icon">
+                        📷
+                    </div>
+
+                    <div class="monitor-text">
+
+                        <strong>
+                            Face Presence
+                        </strong>
+
+                        <span>
+                            Camera-based face detection
+                            is active.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="monitor-feature">
+
+                    <div class="monitor-icon">
+                        🌐
+                    </div>
+
+                    <div class="monitor-text">
+
+                        <strong>
+                            Browser Activity
+                        </strong>
+
+                        <span>
+                            Tab and focus activity is monitored.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="monitor-feature">
+
+                    <div class="monitor-icon">
+                        ⚠️
+                    </div>
+
+                    <div class="monitor-text">
+
+                        <strong>
+                            Suspicious Events
+                        </strong>
+
+                        <span>
+                            Rule-based suspicious events are logged.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ACTIVITY LOG -->
+
+        <div class="side-card">
+
+            <div class="side-card-header">
+
+                <h3>
+                    Browser Activity
+                </h3>
+
+            </div>
+
+
+            <div
+                id="activityLog"
+                class="activity-log"
+            >
+
+                [System] Monitoring initialized
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =================================================
+         MAIN CONTENT
+    ================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- EXAM INTRO -->
+
+        <section class="exam-intro">
+
+
+            <div class="exam-title-row">
+
+
+                <div class="exam-title">
+
+                    <h1>
+                        Python Foundations Assessment
+                    </h1>
+
+                    <p>
+                        Answer all questions carefully before
+                        submitting your examination.
+                    </p>
+
+                </div>
+
+
+                <div class="proctored-badge">
+                    🔐 PROCTORED MODE
+                </div>
+
+
+            </div>
+
+
+
+            <!-- PROGRESS -->
+
+            <div class="progress-area">
+
+
+                <div class="progress-top">
+
+                    <span class="progress-label">
+                        Examination Progress
+                    </span>
+
+                    <span
+                        id="progressCount"
+                        class="progress-count"
+                    >
+                        0 / 10 Answered
+                    </span>
+
+                </div>
+
+
+                <div class="progress-track">
+
+                    <div
+                        id="progressBar"
+                        class="progress-bar"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- QUESTION NAVIGATOR -->
+
+        <section class="question-nav">
+
+            <div class="question-nav-title">
+                QUESTION NAVIGATOR
+            </div>
+
+
+            <div class="question-buttons">
+
+                <button class="question-btn" onclick="goToQuestion(1)">1</button>
+                <button class="question-btn" onclick="goToQuestion(2)">2</button>
+                <button class="question-btn" onclick="goToQuestion(3)">3</button>
+                <button class="question-btn" onclick="goToQuestion(4)">4</button>
+                <button class="question-btn" onclick="goToQuestion(5)">5</button>
+                <button class="question-btn" onclick="goToQuestion(6)">6</button>
+                <button class="question-btn" onclick="goToQuestion(7)">7</button>
+                <button class="question-btn" onclick="goToQuestion(8)">8</button>
+                <button class="question-btn" onclick="goToQuestion(9)">9</button>
+                <button class="question-btn" onclick="goToQuestion(10)">10</button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUESTION 1
+        ================================================== -->
+
+        <section
+            id="question1"
+            class="question-card"
+        >
+
+            <div class="question-header">
+
+                <span class="question-number">
+                    QUESTION 01
+                </span>
+
+                <span class="question-required">
+                    Required
+                </span>
+
+            </div>
+
+
+            <div class="question-text">
+                What is the output of the following Python code?
+            </div>
+
+
+            <div class="code-block">
+x = 10
+print(x + 5)
+            </div>
+
+
+            <div class="options">
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q1"
+                        value="10"
+                    >
+
+                    <span class="option-letter">A</span>
+
+                    <span class="option-text">10</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q1"
+                        value="15"
+                    >
+
+                    <span class="option-letter">B</span>
+
+                    <span class="option-text">15</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q1"
+                        value="20"
+                    >
+
+                    <span class="option-letter">C</span>
+
+                    <span class="option-text">20</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q1"
+                        value="25"
+                    >
+
+                    <span class="option-letter">D</span>
+
+                    <span class="option-text">25</span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUESTION 2
+        ================================================== -->
+
+        <section
+            id="question2"
+            class="question-card"
+        >
+
+            <div class="question-header">
+
+                <span class="question-number">
+                    QUESTION 02
+                </span>
+
+                <span class="question-required">
+                    Required
+                </span>
+
+            </div>
+
+
+            <div class="question-text">
+                Which keyword is used to define a function in Python?
+            </div>
+
+
+            <div class="options">
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q2"
+                        value="function"
+                    >
+
+                    <span class="option-letter">A</span>
+
+                    <span class="option-text">
+                        function
+                    </span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q2"
+                        value="def"
+                    >
+
+                    <span class="option-letter">B</span>
+
+                    <span class="option-text">
+                        def
+                    </span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q2"
+                        value="fun"
+                    >
+
+                    <span class="option-letter">C</span>
+
+                    <span class="option-text">
+                        fun
+                    </span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q2"
+                        value="define"
+                    >
+
+                    <span class="option-letter">D</span>
+
+                    <span class="option-text">
+                        define
+                    </span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUESTION 3
+        ================================================== -->
+
+        <section
+            id="question3"
+            class="question-card"
+        >
+
+            <div class="question-header">
+
+                <span class="question-number">
+                    QUESTION 03
+                </span>
+
+                <span class="question-required">
+                    Required
+                </span>
+
+            </div>
+
+
+            <div class="question-text">
+                Which data type is used to store multiple items in an ordered collection?
+            </div>
+
+
+            <div class="options">
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q3"
+                        value="list"
+                    >
+
+                    <span class="option-letter">A</span>
+
+                    <span class="option-text">
+                        List
+                    </span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q3"
+                        value="integer"
+                    >
+
+                    <span class="option-letter">B</span>
+
+                    <span class="option-text">
+                        Integer
+                    </span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q3"
+                        value="boolean"
+                    >
+
+                    <span class="option-letter">C</span>
+
+                    <span class="option-text">
+                        Boolean
+                    </span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q3"
+                        value="float"
+                    >
+
+                    <span class="option-letter">D</span>
+
+                    <span class="option-text">
+                        Float
+                    </span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUESTION 4
+        ================================================== -->
+
+        <section
+            id="question4"
+            class="question-card"
+        >
+
+            <div class="question-header">
+
+                <span class="question-number">
+                    QUESTION 04
+                </span>
+
+                <span class="question-required">
+                    Required
+                </span>
+
+            </div>
+
+
+            <div class="question-text">
+                What is the output of the following code?
+            </div>
+
+
+            <div class="code-block">
+numbers = [1, 2, 3, 4]
+print(len(numbers))
+            </div>
+
+
+            <div class="options">
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q4"
+                        value="3"
+                    >
+
+                    <span class="option-letter">A</span>
+
+                    <span class="option-text">3</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q4"
+                        value="4"
+                    >
+
+                    <span class="option-letter">B</span>
+
+                    <span class="option-text">4</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q4"
+                        value="5"
+                    >
+
+                    <span class="option-letter">C</span>
+
+                    <span class="option-text">5</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q4"
+                        value="0"
+                    >
+
+                    <span class="option-letter">D</span>
+
+                    <span class="option-text">0</span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUESTION 5
+        ================================================== -->
+
+        <section
+            id="question5"
+            class="question-card"
+        >
+
+            <div class="question-header">
+
+                <span class="question-number">
+                    QUESTION 05
+                </span>
+
+                <span class="question-required">
+                    Required
+                </span>
+
+            </div>
+
+
+            <div class="question-text">
+                Which symbol is used for a single-line comment in Python?
+            </div>
+
+
+            <div class="options">
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q5"
+                        value="//"
+                    >
+
+                    <span class="option-letter">A</span>
+
+                    <span class="option-text">//</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q5"
+                        value="#"
+                    >
+
+                    <span class="option-letter">B</span>
+
+                    <span class="option-text">#</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q5"
+                        value="/*"
+                    >
+
+                    <span class="option-letter">C</span>
+
+                    <span class="option-text">/*</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q5"
+                        value="--"
+                    >
+
+                    <span class="option-letter">D</span>
+
+                    <span class="option-text">--</span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUESTION 6
+        ================================================== -->
+
+        <section
+            id="question6"
+            class="question-card"
+        >
+
+            <div class="question-header">
+
+                <span class="question-number">
+                    QUESTION 06
+                </span>
+
+                <span class="question-required">
+                    Required
+                </span>
+
+            </div>
+
+
+            <div class="question-text">
+                Which method is used to add an item to the end of a Python list?
+            </div>
+
+
+            <div class="options">
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q6"
+                        value="add"
+                    >
+
+                    <span class="option-letter">A</span>
+
+                    <span class="option-text">add()</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q6"
+                        value="append"
+                    >
+
+                    <span class="option-letter">B</span>
+
+                    <span class="option-text">append()</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q6"
+                        value="insert"
+                    >
+
+                    <span class="option-letter">C</span>
+
+                    <span class="option-text">insert()</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q6"
+                        value="push"
+                    >
+
+                    <span class="option-letter">D</span>
+
+                    <span class="option-text">push()</span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUESTION 7
+        ================================================== -->
+
+        <section
+            id="question7"
+            class="question-card"
+        >
+
+            <div class="question-header">
+
+                <span class="question-number">
+                    QUESTION 07
+                </span>
+
+                <span class="question-required">
+                    Required
+                </span>
+
+            </div>
+
+
+            <div class="question-text">
+                What is the output of the following Python expression?
+            </div>
+
+
+            <div class="code-block">
+print(10 // 3)
+            </div>
+
+
+            <div class="options">
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q7"
+                        value="3"
+                    >
+
+                    <span class="option-letter">A</span>
+
+                    <span class="option-text">3</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q7"
+                        value="3.33"
+                    >
+
+                    <span class="option-letter">B</span>
+
+                    <span class="option-text">3.33</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q7"
+                        value="4"
+                    >
+
+                    <span class="option-letter">C</span>
+
+                    <span class="option-text">4</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q7"
+                        value="1"
+                    >
+
+                    <span class="option-letter">D</span>
+
+                    <span class="option-text">1</span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUESTION 8
+        ================================================== -->
+
+        <section
+            id="question8"
+            class="question-card"
+        >
+
+            <div class="question-header">
+
+                <span class="question-number">
+                    QUESTION 08
+                </span>
+
+                <span class="question-required">
+                    Required
+                </span>
+
+            </div>
+
+
+            <div class="question-text">
+                Which keyword is used to create a loop over a sequence in Python?
+            </div>
+
+
+            <div class="options">
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q8"
+                        value="loop"
+                    >
+
+                    <span class="option-letter">A</span>
+
+                    <span class="option-text">loop</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q8"
+                        value="for"
+                    >
+
+                    <span class="option-letter">B</span>
+
+                    <span class="option-text">for</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q8"
+                        value="repeat"
+                    >
+
+                    <span class="option-letter">C</span>
+
+                    <span class="option-text">repeat</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q8"
+                        value="iterate"
+                    >
+
+                    <span class="option-letter">D</span>
+
+                    <span class="option-text">iterate</span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUESTION 9
+        ================================================== -->
+
+        <section
+            id="question9"
+            class="question-card"
+        >
+
+            <div class="question-header">
+
+                <span class="question-number">
+                    QUESTION 09
+                </span>
+
+                <span class="question-required">
+                    Required
+                </span>
+
+            </div>
+
+
+            <div class="question-text">
+                Which data type represents True or False values in Python?
+            </div>
+
+
+            <div class="options">
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q9"
+                        value="String"
+                    >
+
+                    <span class="option-letter">A</span>
+
+                    <span class="option-text">
+                        String
+                    </span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q9"
+                        value="Boolean"
+                    >
+
+                    <span class="option-letter">B</span>
+
+                    <span class="option-text">
+                        Boolean
+                    </span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q9"
+                        value="Integer"
+                    >
+
+                    <span class="option-letter">C</span>
+
+                    <span class="option-text">
+                        Integer
+                    </span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q9"
+                        value="Float"
+                    >
+
+                    <span class="option-letter">D</span>
+
+                    <span class="option-text">
+                        Float
+                    </span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUESTION 10
+        ================================================== -->
+
+        <section
+            id="question10"
+            class="question-card"
+        >
+
+            <div class="question-header">
+
+                <span class="question-number">
+                    QUESTION 10
+                </span>
+
+                <span class="question-required">
+                    Required
+                </span>
+
+            </div>
+
+
+            <div class="question-text">
+                What is the output of the following Python code?
+            </div>
+
+
+            <div class="code-block">
+name = "ExamGuard"
+print(name[0])
+            </div>
+
+
+            <div class="options">
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q10"
+                        value="E"
+                    >
+
+                    <span class="option-letter">A</span>
+
+                    <span class="option-text">E</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q10"
+                        value="x"
+                    >
+
+                    <span class="option-letter">B</span>
+
+                    <span class="option-text">x</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q10"
+                        value="G"
+                    >
+
+                    <span class="option-letter">C</span>
+
+                    <span class="option-text">G</span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q10"
+                        value="d"
+                    >
+
+                    <span class="option-letter">D</span>
+
+                    <span class="option-text">d</span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SUBMIT
+        ================================================== -->
+
+        <section class="submit-area">
+
+            <div class="submit-info">
+
+                <strong>
+                    Ready to submit?
+                </strong>
+
+                <span id="submitInfo">
+                    Make sure you have answered all 10 questions.
+                </span>
+
+            </div>
+
+
+            <button
+                id="submitExamBtn"
+                class="submit-btn"
+                type="button"
+            >
+                Submit Examination
+            </button>
+
+        </section>
+
+
+    </main>
 
 </div>
 
 
 
-<!-- ==================================================
-     MAIN CONTAINER
-================================================== -->
+<!-- =====================================================
+     CONFIRMATION MODAL
+===================================================== -->
 
-<div class="container">
+<div
+    id="submitModal"
+    class="modal-overlay"
+>
 
+    <div class="modal">
 
-    <!-- ==================================================
-         EXAMINATION MONITORING
-    ================================================== -->
+        <div class="modal-icon">
+            ✓
+        </div>
 
-    <div class="monitor-box">
+        <h2>
+            Submit Examination?
+        </h2>
 
-        <h3>
-            Examination Monitoring
-        </h3>
-
-
-        <p>
-
-            Camera:
-
-            <span
-                id="camera-status"
-                class="status">
-
-                Starting...
-
-            </span>
-
+        <p id="modalText">
+            Please confirm that you want to submit your
+            examination.
         </p>
 
 
-        <p>
-
-            Face:
-
-            <span
-                id="face-status"
-                class="status">
-
-                Waiting...
-
-            </span>
-
-        </p>
-
-
-        <p>
-
-            Browser Monitoring:
-
-            <span
-                id="browser-status"
-                class="status">
-
-                Active
-
-            </span>
-
-        </p>
-
-
-        <!-- CAMERA -->
-
-        <video
-            id="camera"
-            autoplay
-            playsinline>
-        </video>
-
-
-        <!-- CANVAS -->
-
-        <canvas
-            id="canvas">
-        </canvas>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         QUESTION 1
-    ================================================== -->
-
-    <div class="question">
-
-        <h3>
-            Question 1
-        </h3>
-
-
-        <p>
-            What is the output of the following Python code?
-        </p>
-
-
-        <pre>
-x = 10
-print(x + 5)
-        </pre>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question1"
-                value="10">
-
-            10
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question1"
-                value="15">
-
-            15
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question1"
-                value="20">
-
-            20
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question1"
-                value="25">
-
-            25
-
-        </label>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         QUESTION 2
-    ================================================== -->
-
-    <div class="question">
-
-        <h3>
-            Question 2
-        </h3>
-
-
-        <p>
-            Which keyword is used to define a function in Python?
-        </p>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question2"
-                value="function">
-
-            function
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question2"
-                value="def">
-
-            def
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question2"
-                value="fun">
-
-            fun
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question2"
-                value="define">
-
-            define
-
-        </label>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         QUESTION 3
-    ================================================== -->
-
-    <div class="question">
-
-        <h3>
-            Question 3
-        </h3>
-
-
-        <p>
-            Which data type is used to store True or False
-            values in Python?
-        </p>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question3"
-                value="int">
-
-            int
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question3"
-                value="string">
-
-            string
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question3"
-                value="boolean">
-
-            boolean
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question3"
-                value="float">
-
-            float
-
-        </label>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         QUESTION 4
-    ================================================== -->
-
-    <div class="question">
-
-        <h3>
-            Question 4
-        </h3>
-
-
-        <p>
-            What will be the output of the following code?
-        </p>
-
-
-        <pre>
-a = 5
-b = 3
-print(a * b)
-        </pre>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question4"
-                value="8">
-
-            8
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question4"
-                value="15">
-
-            15
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question4"
-                value="2">
-
-            2
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question4"
-                value="53">
-
-            53
-
-        </label>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         QUESTION 5
-    ================================================== -->
-
-    <div class="question">
-
-        <h3>
-            Question 5
-        </h3>
-
-
-        <p>
-            Which symbol is used to create a list in Python?
-        </p>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question5"
-                value="[]">
-
-            []
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question5"
-                value="{}">
-
-            {}
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question5"
-                value="()">
-
-            ()
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question5"
-                value="<>">
-
-            &lt;&gt;
-
-        </label>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         QUESTION 6
-    ================================================== -->
-
-    <div class="question">
-
-        <h3>
-            Question 6
-        </h3>
-
-
-        <p>
-            Which keyword is commonly used to iterate
-            through a sequence in Python?
-        </p>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question6"
-                value="loop">
-
-            loop
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question6"
-                value="for">
-
-            for
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question6"
-                value="repeat">
-
-            repeat
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question6"
-                value="iterate">
-
-            iterate
-
-        </label>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         QUESTION 7
-    ================================================== -->
-
-    <div class="question">
-
-        <h3>
-            Question 7
-        </h3>
-
-
-        <p>
-            What is the output of the following Python code?
-        </p>
-
-
-        <pre>
-x = 10
-
-if x > 5:
-    print("Yes")
-        </pre>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question7"
-                value="No">
-
-            No
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question7"
-                value="Yes">
-
-            Yes
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question7"
-                value="10">
-
-            10
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question7"
-                value="Error">
-
-            Error
-
-        </label>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         QUESTION 8
-    ================================================== -->
-
-    <div class="question">
-
-        <h3>
-            Question 8
-        </h3>
-
-
-        <p>
-            Which function is used to find the length
-            of a list in Python?
-        </p>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question8"
-                value="size">
-
-            size()
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question8"
-                value="length">
-
-            length()
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question8"
-                value="len">
-
-            len()
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question8"
-                value="count">
-
-            count()
-
-        </label>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         QUESTION 9
-    ================================================== -->
-
-    <div class="question">
-
-        <h3>
-            Question 9
-        </h3>
-
-
-        <p>
-            Which symbol is used for a single-line
-            comment in Python?
-        </p>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question9"
-                value="//">
-
-            //
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question9"
-                value="#">
-
-            #
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question9"
-                value="/*">
-
-            /*
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question9"
-                value="--">
-
-            --
-
-        </label>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         QUESTION 10
-    ================================================== -->
-
-    <div class="question">
-
-        <h3>
-            Question 10
-        </h3>
-
-
-        <p>
-            What is the output of the following Python code?
-        </p>
-
-
-        <pre>
-numbers = [1, 2, 3]
-print(len(numbers))
-        </pre>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question10"
-                value="1">
-
-            1
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question10"
-                value="2">
-
-            2
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question10"
-                value="3">
-
-            3
-
-        </label>
-
-
-        <label class="option">
-
-            <input
-                type="radio"
-                name="question10"
-                value="4">
-
-            4
-
-        </label>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         SUBMIT EXAM
-    ================================================== -->
-
-    <div class="question submit-section">
-
-        <button
-            type="button"
-            class="submit-button"
-            onclick="submitExam()">
-
-            Submit Exam
-
-        </button>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         BROWSER EVENT LOG
-    ================================================== -->
-
-    <div class="monitor-box">
-
-        <h3>
-            Browser Activity
-        </h3>
-
-
-        <div id="event-log">
-
-            Monitoring started...
+        <div class="modal-actions">
+
+            <button
+                id="cancelSubmit"
+                class="modal-btn cancel-btn"
+            >
+                Continue Exam
+            </button>
+
+
+            <button
+                id="confirmSubmit"
+                class="modal-btn confirm-btn"
+            >
+                Submit Now
+            </button>
 
         </div>
 
     </div>
-
 
 </div>
 
@@ -1170,108 +2847,210 @@ print(len(numbers))
 
 <script>
 
+/* =========================================================
+   GLOBAL VARIABLES
+========================================================= */
 
-/* =====================================================
-   PART 1
-   CAMERA VARIABLES
-===================================================== */
+const TOTAL_QUESTIONS = 10;
+
+let examSubmitted = false;
+
+let cameraStream = null;
+
+let remainingSeconds = 60 * 60;
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
 const video =
-    document.getElementById("camera");
-
+    document.getElementById("video");
 
 const canvas =
     document.getElementById("canvas");
 
-
-const context =
-    canvas.getContext("2d");
-
-
 const cameraStatus =
-    document.getElementById("camera-status");
-
+    document.getElementById("cameraStatus");
 
 const faceStatus =
-    document.getElementById("face-status");
+    document.getElementById("faceStatus");
+
+const browserStatus =
+    document.getElementById("browserStatus");
+
+const cameraMessage =
+    document.getElementById("cameraMessage");
+
+const activityLog =
+    document.getElementById("activityLog");
+
+const timerElement =
+    document.getElementById("timer");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const progressCount =
+    document.getElementById("progressCount");
+
+const submitInfo =
+    document.getElementById("submitInfo");
+
+const submitModal =
+    document.getElementById("submitModal");
 
 
 
-/* =====================================================
-   PART 2
-   START CAMERA
-===================================================== */
+/* =========================================================
+   ACTIVITY LOG
+========================================================= */
 
-navigator.mediaDevices
-    .getUserMedia({
+function addActivity(message) {
 
-        video: true,
+    const now =
+        new Date().toLocaleTimeString();
 
-        audio: false
+    const line =
+        document.createElement("div");
 
-    })
+    line.textContent =
+        `[${now}] ${message}`;
 
-    .then(function(stream) {
+    activityLog.appendChild(line);
 
-        video.srcObject = stream;
-
-        cameraStatus.innerText =
-            "Connected";
-
-        cameraStatus.style.color =
-            "green";
-
-        startFaceMonitoring();
-
-    })
-
-    .catch(function(error) {
-
-        console.error(
-            "Camera error:",
-            error
-        );
-
-        cameraStatus.innerText =
-            "Camera access denied";
-
-        cameraStatus.style.color =
-            "red";
-
-    });
-
-
-
-/* =====================================================
-   PART 3
-   START FACE MONITORING
-===================================================== */
-
-function startFaceMonitoring() {
-
-    /*
-    Capture one frame every 2 seconds.
-    */
-
-    setInterval(
-        captureAndSendFrame,
-        2000
-    );
-
+    activityLog.scrollTop =
+        activityLog.scrollHeight;
 }
 
 
 
-/* =====================================================
-   PART 4
-   CAPTURE WEBCAM FRAME
-===================================================== */
+/* =========================================================
+   SEND BROWSER EVENT TO FLASK
+========================================================= */
 
-function captureAndSendFrame() {
+async function logBrowserEvent(
+    eventType,
+    details = ""
+) {
 
-    /*
-    Make canvas same size as video.
-    */
+    addActivity(eventType);
+
+    try {
+
+        await fetch(
+            "/log-browser-event",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    event_type:
+                        eventType,
+
+                    details:
+                        details
+                })
+            }
+        );
+
+    } catch (error) {
+
+        addActivity(
+            "Event logging unavailable"
+        );
+    }
+}
+
+
+
+/* =========================================================
+   CAMERA INITIALIZATION
+========================================================= */
+
+async function startCamera() {
+
+    try {
+
+        cameraStream =
+            await navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: false
+            });
+
+
+        video.srcObject =
+            cameraStream;
+
+
+        cameraStatus.textContent =
+            "Connected";
+
+        cameraStatus.className =
+            "status-pill success";
+
+
+        cameraMessage.style.display =
+            "none";
+
+
+        addActivity(
+            "Camera connected"
+        );
+
+
+        startFaceMonitoring();
+
+    } catch (error) {
+
+        cameraStatus.textContent =
+            "Unavailable";
+
+        cameraStatus.className =
+            "status-pill danger";
+
+
+        cameraMessage.textContent =
+            "Camera access is required for this examination.";
+
+
+        addActivity(
+            "Camera access denied"
+        );
+    }
+}
+
+
+
+/* =========================================================
+   FACE MONITORING
+========================================================= */
+
+function startFaceMonitoring() {
+
+    setInterval(
+        captureFrame,
+        2000
+    );
+}
+
+
+
+function captureFrame() {
+
+    if (
+        !video.videoWidth ||
+        !video.videoHeight ||
+        examSubmitted
+    ) {
+        return;
+    }
+
 
     canvas.width =
         video.videoWidth;
@@ -1280,721 +3059,765 @@ function captureAndSendFrame() {
         video.videoHeight;
 
 
-    /*
-    Draw current webcam frame
-    onto canvas.
-    */
+    const context =
+        canvas.getContext("2d");
+
 
     context.drawImage(
-
         video,
-
         0,
-
         0,
-
         canvas.width,
-
         canvas.height
-
     );
 
 
-    /*
-    Convert canvas image into JPEG.
-    */
-
     canvas.toBlob(
-
-        function(blob) {
+        async function(blob) {
 
             if (!blob) {
-
-                console.error(
-                    "Could not create image"
-                );
-
                 return;
-
             }
 
-
-            /*
-            Create FormData.
-            */
 
             const formData =
                 new FormData();
 
 
-            /*
-            IMPORTANT:
-            app.py expects "image".
-            */
-
             formData.append(
-
                 "image",
-
                 blob,
-
                 "frame.jpg"
-
             );
 
 
-            /*
-            Send frame to Flask.
-            */
+            try {
 
-            fetch(
-
-                "/monitor-face",
-
-                {
-
-                    method: "POST",
-
-                    body: formData
-
-                }
-
-            )
-
-            .then(function(response) {
-
-                return response.json();
-
-            })
-
-            .then(function(data) {
-
-                console.log(
-                    "Face state:",
-                    data.state
-                );
+                const response =
+                    await fetch(
+                        "/monitor-face",
+                        {
+                            method: "POST",
+                            body: formData
+                        }
+                    );
 
 
-                /*
-                Update face status.
-                */
+                const data =
+                    await response.json();
+
 
                 if (
+                    data.success &&
                     data.state ===
                     "face_detected"
                 ) {
 
-                    faceStatus.innerText =
+                    faceStatus.textContent =
                         "Face Detected";
 
-                    faceStatus.style.color =
-                        "green";
+                    faceStatus.className =
+                        "status-pill success";
 
                 }
 
                 else if (
+                    data.success &&
                     data.state ===
                     "face_absent"
                 ) {
 
-                    faceStatus.innerText =
-                        "Face Absent";
+                    faceStatus.textContent =
+                        "Face Not Detected";
 
-                    faceStatus.style.color =
-                        "red";
-
+                    faceStatus.className =
+                        "status-pill danger";
                 }
 
-            })
+            } catch (error) {
 
-            .catch(function(error) {
+                faceStatus.textContent =
+                    "Monitoring Error";
 
-                console.error(
-                    "Face monitoring error:",
-                    error
-                );
-
-            });
-
+                faceStatus.className =
+                    "status-pill warning";
+            }
 
         },
-
         "image/jpeg",
-
-        0.7
-
+        0.8
     );
-
 }
 
 
 
-/* =====================================================
-   PART 5
-   BROWSER EVENT FUNCTION
-===================================================== */
+/* =========================================================
+   QUESTION PROGRESS
+========================================================= */
 
-function logBrowserEvent(
-    eventType,
-    details
-) {
+function updateProgress() {
 
-    /*
-    Send browser event to Flask.
-    */
+    let answered = 0;
 
-    fetch(
 
-        "/log-browser-event",
+    for (
+        let i = 1;
+        i <= TOTAL_QUESTIONS;
+        i++
+    ) {
 
-        {
+        const selected =
+            document.querySelector(
+                `input[name="q${i}"]:checked`
+            );
 
-            method: "POST",
 
-            headers: {
+        const button =
+            document.querySelectorAll(
+                ".question-btn"
+            )[i - 1];
 
-                "Content-Type":
-                    "application/json"
 
-            },
+        if (selected) {
 
-            body: JSON.stringify({
+            answered++;
 
-                event_type:
-                    eventType,
+            button.classList.add(
+                "answered"
+            );
 
-                details:
-                    details
+        } else {
 
-            })
-
+            button.classList.remove(
+                "answered"
+            );
         }
+    }
 
-    )
 
-    .then(function(response) {
+    const percentage =
+        (answered /
+            TOTAL_QUESTIONS) *
+        100;
 
-        return response.json();
 
-    })
+    progressBar.style.width =
+        `${percentage}%`;
 
-    .then(function(data) {
 
-        console.log(
+    progressCount.textContent =
+        `${answered} / ${TOTAL_QUESTIONS} Answered`;
 
-            "Browser event saved:",
 
-            eventType
+    if (
+        answered === TOTAL_QUESTIONS
+    ) {
 
-        );
+        submitInfo.textContent =
+            "All 10 questions have been answered.";
 
-    })
+    } else {
 
-    .catch(function(error) {
+        submitInfo.textContent =
+            `${TOTAL_QUESTIONS - answered} question(s) remaining.`;
+    }
+}
 
-        console.error(
 
-            "Browser event error:",
 
-            error
+/* =========================================================
+   OPTION SELECTION
+========================================================= */
 
+document
+    .querySelectorAll(".option")
+    .forEach(option => {
+
+        option.addEventListener(
+            "click",
+            function() {
+
+                const radio =
+                    this.querySelector(
+                        "input"
+                    );
+
+
+                radio.checked =
+                    true;
+
+
+                const parent =
+                    this.closest(
+                        ".options"
+                    );
+
+
+                parent
+                    .querySelectorAll(
+                        ".option"
+                    )
+                    .forEach(
+                        item =>
+                            item.classList.remove(
+                                "selected"
+                            )
+                    );
+
+
+                this.classList.add(
+                    "selected"
+                );
+
+
+                const questionNumber =
+                    radio.name.replace(
+                        "q",
+                        ""
+                    );
+
+
+                logBrowserEvent(
+                    "answer_selected",
+                    `Question ${questionNumber}`
+                );
+
+
+                updateProgress();
+            }
         );
 
     });
 
 
-    /*
-    Also show event on screen.
-    */
 
-    displayEvent(
+/* =========================================================
+   QUESTION NAVIGATION
+========================================================= */
 
-        eventType,
+function goToQuestion(number) {
 
-        details
-
-    );
-
-}
-
-
-
-/* =====================================================
-   PART 6
-   DISPLAY BROWSER EVENT
-===================================================== */
-
-function displayEvent(
-    eventType,
-    details
-) {
-
-    const eventLog =
+    const question =
         document.getElementById(
-            "event-log"
+            `question${number}`
         );
 
 
-    const time =
-        new Date()
-        .toLocaleTimeString();
+    if (question) {
 
-
-    const message =
-        document.createElement(
-            "div"
-        );
-
-
-    message.innerText =
-
-        time +
-        " - " +
-        eventType +
-        " - " +
-        details;
-
-
-    eventLog.appendChild(
-        message
-    );
-
-
-    /*
-    Scroll to latest event.
-    */
-
-    eventLog.scrollTop =
-        eventLog.scrollHeight;
-
+        question.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
 }
 
 
 
-/* =====================================================
-   PART 7
-   EXAM STARTED
-===================================================== */
-
-window.addEventListener(
-
-    "load",
-
-    function() {
-
-        logBrowserEvent(
-
-            "exam_started",
-
-            "Candidate opened examination page"
-
-        );
-
-    }
-
-);
-
-
-
-/* =====================================================
-   PART 8
+/* =========================================================
    TAB SWITCH
-===================================================== */
+========================================================= */
 
 document.addEventListener(
-
     "visibilitychange",
-
     function() {
 
-        if (
-            document.hidden
-        ) {
+        if (document.hidden) {
 
             logBrowserEvent(
-
                 "tab_switch",
-
-                "Candidate left examination page"
-
+                "Candidate left the examination tab"
             );
 
-        }
+            browserStatus.textContent =
+                "Attention";
 
-        else {
+            browserStatus.className =
+                "status-pill warning";
+
+        } else {
 
             logBrowserEvent(
-
                 "tab_return",
-
-                "Candidate returned to examination page"
-
+                "Candidate returned to examination"
             );
 
+            browserStatus.textContent =
+                "Active";
+
+            browserStatus.className =
+                "status-pill success";
         }
 
     }
-
 );
 
 
 
-/* =====================================================
-   PART 9
-   WINDOW FOCUS LOST
-===================================================== */
+/* =========================================================
+   WINDOW FOCUS
+========================================================= */
 
 window.addEventListener(
-
     "blur",
-
     function() {
 
         logBrowserEvent(
-
             "focus_lost",
-
-            "Browser window lost focus"
-
+            "Examination window lost focus"
         );
 
     }
-
 );
 
-
-
-/* =====================================================
-   PART 10
-   WINDOW FOCUS GAINED
-===================================================== */
 
 window.addEventListener(
-
     "focus",
-
     function() {
 
         logBrowserEvent(
-
             "focus_gained",
-
-            "Browser window regained focus"
-
+            "Examination window gained focus"
         );
 
     }
-
 );
 
 
 
-/* =====================================================
-   PART 11
+/* =========================================================
    COPY
-===================================================== */
+========================================================= */
 
 document.addEventListener(
-
     "copy",
-
-    function() {
-
-        logBrowserEvent(
-
-            "copy_attempt",
-
-            "Candidate attempted to copy content"
-
-        );
-
-    }
-
-);
-
-
-
-/* =====================================================
-   PART 12
-   PASTE
-===================================================== */
-
-document.addEventListener(
-
-    "paste",
-
-    function() {
-
-        logBrowserEvent(
-
-            "paste_attempt",
-
-            "Candidate attempted to paste content"
-
-        );
-
-    }
-
-);
-
-
-
-/* =====================================================
-   PART 13
-   CUT
-===================================================== */
-
-document.addEventListener(
-
-    "cut",
-
-    function() {
-
-        logBrowserEvent(
-
-            "cut_attempt",
-
-            "Candidate attempted to cut content"
-
-        );
-
-    }
-
-);
-
-
-
-/* =====================================================
-   PART 14
-   RIGHT CLICK
-===================================================== */
-
-document.addEventListener(
-
-    "contextmenu",
-
     function(event) {
-
-        /*
-        Stop normal context menu.
-        */
 
         event.preventDefault();
 
-
         logBrowserEvent(
-
-            "right_click",
-
-            "Candidate attempted right click"
-
+            "copy_attempt",
+            "Copy operation attempted"
         );
-
     }
-
 );
 
 
 
-/* =====================================================
-   PART 15
-   KEYBOARD ACTIVITY
-===================================================== */
+/* =========================================================
+   PASTE
+========================================================= */
 
 document.addEventListener(
-
-    "keydown",
-
+    "paste",
     function(event) {
 
-        /*
-        We record only that
-        keyboard activity happened.
-
-        We do NOT store the actual key.
-        */
+        event.preventDefault();
 
         logBrowserEvent(
-
-            "keyboard_activity",
-
-            "Candidate pressed a keyboard key"
-
+            "paste_attempt",
+            "Paste operation attempted"
         );
-
     }
-
 );
 
 
 
-/* =====================================================
-   PART 16
-   MOUSE ACTIVITY
-===================================================== */
-
-let lastMouseEventTime = 0;
-
+/* =========================================================
+   CUT
+========================================================= */
 
 document.addEventListener(
+    "cut",
+    function(event) {
 
-    "mousemove",
+        event.preventDefault();
 
-    function() {
+        logBrowserEvent(
+            "cut_attempt",
+            "Cut operation attempted"
+        );
+    }
+);
 
-        const currentTime =
-            Date.now();
 
 
-        /*
-        Save mouse activity
-        only once every 5 seconds.
-        */
+/* =========================================================
+   RIGHT CLICK
+========================================================= */
+
+document.addEventListener(
+    "contextmenu",
+    function(event) {
+
+        event.preventDefault();
+
+        logBrowserEvent(
+            "right_click",
+            "Right click attempted"
+        );
+    }
+);
+
+
+
+/* =========================================================
+   KEYBOARD ACTIVITY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
 
         if (
-
-            currentTime -
-            lastMouseEventTime
-            >= 5000
-
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key === "F12"
         ) {
 
-            lastMouseEventTime =
-                currentTime;
-
-
             logBrowserEvent(
-
-                "mouse_activity",
-
-                "Candidate moved mouse"
-
+                "keyboard_activity",
+                `Key combination: ${event.key}`
             );
-
         }
 
     }
-
 );
 
 
 
-/* =====================================================
-   PART 17
-   ANSWER SELECTED
-===================================================== */
+/* =========================================================
+   TIMER
+========================================================= */
 
-/*
-IMPORTANT:
+function updateTimer() {
 
-Each question now has its own name:
-
-question1
-question2
-question3
-...
-question10
-
-Therefore we select all radio buttons
-instead of searching only for name="answer".
-*/
-
-const answerOptions =
-
-    document.querySelectorAll(
-
-        'input[type="radio"]'
-
-    );
+    if (
+        examSubmitted
+    ) {
+        return;
+    }
 
 
-answerOptions.forEach(
+    const minutes =
+        Math.floor(
+            remainingSeconds / 60
+        );
 
-    function(option) {
 
-        option.addEventListener(
+    const seconds =
+        remainingSeconds % 60;
 
-            "change",
 
-            function() {
+    timerElement.textContent =
+        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
-                logBrowserEvent(
 
-                    "answer_selected",
+    if (
+        remainingSeconds <= 300
+    ) {
 
-                    "Candidate selected an answer"
+        timerElement.classList.add(
+            "danger"
+        );
 
-                );
+        timerElement.classList.remove(
+            "warning"
+        );
+
+    } else if (
+        remainingSeconds <= 600
+    ) {
+
+        timerElement.classList.add(
+            "warning"
+        );
+    }
+
+
+    if (
+        remainingSeconds <= 0
+    ) {
+
+        remainingSeconds = 0;
+
+        submitExam(
+            true
+        );
+
+        return;
+    }
+
+
+    remainingSeconds--;
+}
+
+
+setInterval(
+    updateTimer,
+    1000
+);
+
+
+
+/* =========================================================
+   SUBMIT MODAL
+========================================================= */
+
+document
+    .getElementById("submitExamBtn")
+    .addEventListener(
+        "click",
+        function() {
+
+            let answered = 0;
+
+
+            for (
+                let i = 1;
+                i <= TOTAL_QUESTIONS;
+                i++
+            ) {
+
+                if (
+                    document.querySelector(
+                        `input[name="q${i}"]:checked`
+                    )
+                ) {
+
+                    answered++;
+                }
+            }
+
+
+            if (
+                answered <
+                TOTAL_QUESTIONS
+            ) {
+
+                document.getElementById(
+                    "modalText"
+                ).textContent =
+                    `You have answered ${answered} out of ${TOTAL_QUESTIONS} questions. Please answer all questions before submitting.`;
+
+            } else {
+
+                document.getElementById(
+                    "modalText"
+                ).textContent =
+                    "All 10 questions are answered. Are you sure you want to submit the examination?";
 
             }
 
-        );
 
-    }
-
-);
-
-
-
-/* =====================================================
-   PART 18
-   SUBMIT EXAM
-===================================================== */
-
-function submitExam() {
-
-    /*
-    Check whether every question
-    has an answer.
-    */
-
-    for (
-        let questionNumber = 1;
-        questionNumber <= 10;
-        questionNumber++
-    ) {
-
-        const selectedAnswer =
-            document.querySelector(
-                'input[name="question' +
-                questionNumber +
-                '"]:checked'
+            submitModal.classList.add(
+                "show"
             );
+        }
+    );
 
 
-        if (!selectedAnswer) {
 
-            alert(
-                "Please answer Question " +
-                questionNumber +
-                " before submitting the exam."
+/* =========================================================
+   CANCEL SUBMISSION
+========================================================= */
+
+document
+    .getElementById("cancelSubmit")
+    .addEventListener(
+        "click",
+        function() {
+
+            submitModal.classList.remove(
+                "show"
             );
+        }
+    );
 
-            return;
+
+
+/* =========================================================
+   CONFIRM SUBMISSION
+========================================================= */
+
+document
+    .getElementById("confirmSubmit")
+    .addEventListener(
+        "click",
+        function() {
+
+            let answered = 0;
+
+
+            for (
+                let i = 1;
+                i <= TOTAL_QUESTIONS;
+                i++
+            ) {
+
+                if (
+                    document.querySelector(
+                        `input[name="q${i}"]:checked`
+                    )
+                ) {
+
+                    answered++;
+                }
+            }
+
+
+            if (
+                answered <
+                TOTAL_QUESTIONS
+            ) {
+
+                submitModal.classList.remove(
+                    "show"
+                );
+
+
+                alert(
+                    `Please answer all 10 questions. You have answered ${answered} out of 10.`
+                );
+
+                return;
+            }
+
+
+            submitExam(
+                false
+            );
 
         }
+    );
 
+
+
+/* =========================================================
+   SUBMIT EXAM
+========================================================= */
+
+function submitExam(
+    automaticSubmit = false
+) {
+
+    if (
+        examSubmitted
+    ) {
+        return;
+    }
+
+
+    examSubmitted = true;
+
+
+    logBrowserEvent(
+        "exam_submitted",
+        automaticSubmit
+            ? "Exam submitted automatically because time expired"
+            : "Candidate submitted the examination"
+    );
+
+
+    if (
+        cameraStream
+    ) {
+
+        cameraStream
+            .getTracks()
+            .forEach(
+                track =>
+                    track.stop()
+            );
+    }
+
+
+    if (
+        automaticSubmit
+    ) {
+
+        alert(
+            "Time is over. Your examination has been submitted."
+        );
+
+    } else {
+
+        alert(
+            "Your examination has been submitted successfully."
+        );
     }
 
 
     /*
-    Log exam submission.
+       Current backend does not have a dedicated
+       exam-submission route.
+
+       Therefore this version keeps the existing
+       ExamGuard behavior and logs the submission.
     */
 
-    logBrowserEvent(
 
-        "exam_submitted",
+    document
+        .querySelectorAll(
+            "input"
+        )
+        .forEach(
+            input =>
+                input.disabled = true
+        );
 
-        "Candidate submitted the examination"
 
-    );
+    document
+        .getElementById(
+            "submitExamBtn"
+        )
+        .disabled = true;
 
 
-    alert(
-        "Exam submitted successfully."
-    );
+    document
+        .getElementById(
+            "submitExamBtn"
+        )
+        .textContent =
+            "Exam Submitted";
 
+
+    document
+        .getElementById(
+            "submitExamBtn"
+        )
+        .style.background =
+            "#16a34a";
 }
+
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        addActivity(
+            "Exam session started"
+        );
+
+
+        logBrowserEvent(
+            "exam_started",
+            "Python Foundations Assessment started"
+        );
+
+
+        updateProgress();
+
+
+        startCamera();
+
+    }
+);
 
 </script>
 
